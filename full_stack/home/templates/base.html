@@ -1,0 +1,40 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} FULL STACK {% endblock %}</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="{% block keywords %} FULL STACK {% endblock %}" name="keywords">
+    <meta content="{% block description %} FULL STACK {% endblock %}" name="description">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    {% comment %} <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet"> {% endcomment %}
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css'%}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+    {% block head %} {% endblock %}
+
+</head>
+<body>
+
+{% include 'header.html' %}
+{% block body %} {% endblock %}
+{% include 'footer.html' %}
+{% block foot %} {% endblock %}
+</body>
+</html>
