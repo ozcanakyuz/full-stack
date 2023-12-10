@@ -1,15 +1,21 @@
 .gradient-custom {
   /* fallback for old browsers */
-  background: #6a11cb;
+  background: rgb(106, 17, 203);
 
   /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(37, 117, 252, 0.9));
+  background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(199, 147, 255, 0.9));
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(37, 117, 252, 0.9));
+  background: linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(199, 147, 255, 0.9));;
 }
 
 /* now add CSS code */
+
+body {
+  background: rgb(106, 17, 203);
+  background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(199, 147, 255, 0.9));;
+  background: linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(199, 147, 255, 0.9));;
+}
 
 /* ! NAVBAR RIGHT  */
 h1{
@@ -59,7 +65,7 @@ h1::before{
   border-radius: 10px;
 }
 
-.btn{
+.btnnavbar{
   height: 40px;
   width: 40px;
   border-radius: 150px;
@@ -81,10 +87,9 @@ h1::before{
 transition: box-shadow 0.5s cubic-bezier(0.79,0.21,0.06,0.81);
 font-size: 16px;
 color: rgba(42,52,84,1);
-text-decoration: none; 
 }  
 /* active button */
-.btn:active{
+.btnnavbar:active{
   box-shadow: 4px -4px 6px 0px rgba(255,255,255,0.5),
               -4px -4px 6px 0px rgba(116,125,136,0.2),
               inset -4px -4px 6px 0px rgba(255,255,255,0.5),
@@ -147,3 +152,77 @@ text-decoration: none;
 .dropdownnotif a:hover {background-color: #ddd;}
 
 .show {display: block;}
+
+/* search */
+.search-box{
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  margin-right: 1rem;
+}
+.input-search{
+  height: 40px;
+  width: 40px;
+  border-style: none;
+  letter-spacing: 2px;
+  outline: none;
+  border-radius: 25px;
+  transition: all .5s ease-in-out;
+  background-color: #22a6b3;
+  color:#fff;
+}
+.input-search::placeholder{
+  color:rgba(255,255,255,.5);
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+.btn-search{
+  width: 40px;
+  height: 40px;
+  border-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  color:#0bc6d7 ;
+  pointer-events: painted;  
+  border-radius: 150px;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:  -7px -7px 20px #fff9,
+  -4px -4px 5px 0px #fff9,
+  7px 7px 20px 0px #0001,
+  4px 4px 5px 0px #0001,
+  inset 0px 0px 0px 0px #fff9,
+  inset 0px 0px 0px 0px #0001,
+  inset 0px 0px 0px 0px #fff9,
+  inset 0px 0px 0px 0px #0001 ;
+  transition: box-shadow 0.5s cubic-bezier(0.79,0.21,0.06,0.81);
+  text-decoration: none; 
+}
+.btn-search:focus ~ .input-search{
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+.input-search:focus{
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+/* img */
+div > img {
+  max-width: 12rem;
+}
+
+.card-group .card:hover{
+  box-shadow: 0px 0px 35px 5px rgba(255, 61, 61, 0.626);
+}

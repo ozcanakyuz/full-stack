@@ -3,7 +3,7 @@
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-light gradient-custom">
+<nav class="navbar navbar-expand-lg bg-light gradient-custom">
     <!-- Container wrapper -->
     <div class="container-fluid">
         <!-- Toggle button -->
@@ -23,37 +23,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Navbar brand -->
             <a class="navbar-brand mt-2 mt-lg-0" href="/">
-                <h3 class="pt-1 mb-1 text-light">FULL-STACK</h3>
+                <h3 class="pt-1 mb-1 text-light border-bottom">FULL-STACK</h3>
             </a>
-            <!-- Left links -->
-            {% comment %} <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Team</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Projects</a>
-                </li>
-            </ul> {% endcomment %}
-            <!-- Left links -->
         </div>
         <!-- Collapsible wrapper -->
 
         <!-- Right elements -->
-        <div class="d-flex align-items-center frame-right">
+        <div class="search-box">
+            <button class="btn btnnavbar btn-search"><i class="fas fa-search"></i></button>
+            <input type="text" class="input-search" placeholder="Type to Search...">
+        </div>
+        
+        <div class="d-flex align-items-center frame-right border-bottom">
             <!-- Icon -->
-            <a class="text-reset me-3 btn" href="#">
+            <a class="text-reset me-3 btn btnnavbar" href="#">
                 <i class="fas fa-shopping-cart" style="color:#ee4056;"></i>
             </a>
 
             <!-- Notifications -->
             <div class="dropdownnotif">
-                <a class="text-reset me-3 dropbtnnotif hidden-arrow btn" href="#" onclick="myFunctionNotif()" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                <a class="text-reset me-3 dropbtnnotif hidden-arrow btn btnnavbar" href="#" onclick="myFunctionNotif()" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-bell" style="color:#65d838;"></i>
                     {% comment %} <span class="badge rounded-pill badge-notification bg-danger">1</span> {% endcomment %}
                 </a>
@@ -66,7 +55,7 @@
             </div>
             <!-- Avatar -->
             <div class="dropdown">
-                <a class="dropbtn d-flex align-items-center hidden-arrow btn" href="#" onclick="myFunction()" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" onclick="myFunction()" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                 
                     <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy" />
                 </a>
