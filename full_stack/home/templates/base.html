@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %} FULL STACK {% endblock %}</title>
+    <title>{% block title %} {{ page }} {% endblock %}</title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="{% block keywords %} FULL STACK {% endblock %}" name="keywords">
-    <meta content="{% block description %} FULL STACK {% endblock %}" name="description">
+    <meta content="{% block keywords %} {{setting.keywords}} {% endblock %}" name="keywords">
+    <meta content="{% block description %} {{setting.description}} {% endblock %}" name="description">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
@@ -19,10 +19,6 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    {% comment %} <!-- Libraries Stylesheet -->
-    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
-    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet"> {% endcomment %}
-
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/style.css'%}" rel="stylesheet">
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
@@ -32,7 +28,7 @@
 </head>
 <body>
 
-{% include 'header.html' %}
+{% include 'navbar.html' %}
 {% block body %} {% endblock %}
 {% include 'footer.html' %}
 {% block foot %} {% endblock %}

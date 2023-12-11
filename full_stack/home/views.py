@@ -20,7 +20,7 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
-                #? messages.success(request, "Başarılı şekilde oturum açtınız {}".format(user.username))
+                messages.success(request, "You have successfully logged in {}".format(user.username))
                 return HttpResponseRedirect('/home')
             else:
                 messages.warning(request, "Girilen Bilgiler Hatalı Tekrar Deneyiniz {}".format(username))

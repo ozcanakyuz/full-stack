@@ -1,0 +1,72 @@
+{% load static %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-light gradient-custom px-5">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+            class="navbar-toggler text-white"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0" href="/">
+                <h3 class="pt-1 mb-1 text-light border-bottom">FULL-STACK</h3>
+            </a>
+        </div>
+        <!-- Collapsible wrapper -->
+
+        <!-- Right elements -->
+        <div class="search-box">
+            <button class="btn btnnavbar btn-search"><i class="fas fa-search"></i></button>
+            <input type="text" class="input-search" placeholder="Type to Search...">
+        </div>
+        
+        <div class="d-flex align-items-center frame-right border-bottom">
+            <!-- Icon -->
+            <a class="text-reset me-3 btn btnnavbar" href="#">
+                <i class="fas fa-shopping-cart" style="color:#ee4056;"></i>
+            </a>
+
+            <!-- Notifications -->
+            <div class="dropdownnotif">
+                <a class="text-reset me-3 dropbtnnotif hidden-arrow btn btnnavbar" href="#" onclick="myFunctionNotif()" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-bell" style="color:#65d838;"></i>
+                    {% comment %} <span class="badge rounded-pill badge-notification bg-danger">1</span> {% endcomment %}
+                </a>
+                <div id="myDropdownNotif" class="dropdown-content-notif mt-2 rounded">
+                    <a href="#home">Some news</a>
+                    <a href="#about">Another news</a>
+                    <a href="#contact">Something else here</a>
+                </div>
+
+            </div>
+            <!-- Avatar -->
+            <div class="dropdown">
+                <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" onclick="myFunction()" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                
+                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy" />
+                </a>
+                <div id="myDropdown" class="dropdown-content mt-2 rounded">
+                    <a href="/user">Profile</a>
+                    <a href="/comments">My Comments</a>
+                    <a href="/settings">Settings</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </div>
+        </div>
+        <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
