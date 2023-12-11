@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     #?
     'home',
     'user',
+    #* my apps
+    'active_link',
 ]
 
 MIDDLEWARE = [
