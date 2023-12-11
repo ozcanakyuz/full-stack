@@ -3,7 +3,7 @@
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-light gradient-custom">
+<nav class="navbar navbar-expand-lg bg-light gradient-custom px-5">
     <!-- Container wrapper -->
     <div class="container-fluid">
         <!-- Toggle button -->
@@ -60,10 +60,10 @@
                     <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy" />
                 </a>
                 <div id="myDropdown" class="dropdown-content mt-2 rounded">
-                    <a href="#home">Profile</a>
-                    <a href="#about">My Comments</a>
-                    <a href="#contact">Settings</a>
-                    <a href="#contact">Log Out</a>
+                    <a href="/profile">Profile</a>
+                    <a href="/comments">My Comments</a>
+                    <a href="/settings">Settings</a>
+                    <a href="/logout">Log Out</a>
                 </div>
             </div>
         </div>
@@ -72,3 +72,14 @@
     <!-- Container wrapper -->
 </nav>
 <!-- Navbar -->
+<!-- Header -->
+<header>
+    <div class="header">
+        <div class="container" style="position: absolute;">
+            <img src="{% static 'img/navbar.png' %}" alt=".." class="my-4 rounded-7">
+            <h2 class="text-light px-2 border-bottom" id="navbar-text">I Learning Python/Django - Fullstack</h2>
+        </div>
+    </div>
+</header>
+
+<!-- Header -->
