@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<!-- Header -->
+<header>
+    <div class="header m-auto">
+        <div class="container" style="position: relative;">
+            <h2 class="text-light px-2 m-auto border-bottom" id="navbar-text">ADD NEW POST</h2>
+        </div>
+    </div>
+</header>
+<!-- Header -->
+
+
+
+<div class="container w-50 my-4 shadow-lg p-4 rounded">
+    
+<form action="addpost" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Your Name*</label>
+        <input type="text" name="title" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+        <label for="email">Your Email*</label>
+        <input type="email" class="form-control" id="email">
+    </div>
+    <div class="form-group">
+        <label for="message">Whats Up?</label>
+        <textarea id="message" name="content" cols="30" rows="5" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="img">Select image:</label>
+        <input type="file" id="image" name="image" accept="image/*" class="btn btn-outline-warning rounded">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Leave Your Review" class="btn btn-outline-success px-3 rounded">
+    </div>
+</form>
+</div>
+
+{% endblock %}

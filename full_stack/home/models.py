@@ -55,3 +55,36 @@ class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
         fields = ['phone', 'address', 'city', 'country', 'image']
+
+#! POST FORM 
+class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    create_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(blank=True, upload_to='images/')
+
+    def __str__(self):
+        return self.title
+    
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+    #! Admin tarafindaki 'image_tag' ifadesini kullanmak için alttaki kodu yazmak gerekiyor.
+    image_tag.short_description = 'Image'
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'image']
+        #! image = forms.ImageField(required=True, validators=[validate_image_file_extension])
+
+class Images(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    image = models.ImageField(blank=True, upload_to='images/')
+
+    def __str__(self):
+        return self.title
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+    image_tag.short_description = 'Image'

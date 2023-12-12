@@ -5,7 +5,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render
 
 from home.forms import LoginForm, SignUpForm
-from home.models import UserProfile
+from home.models import Post, UserProfile
 
 #! LOG IN & SIGN-UP
 
@@ -43,11 +43,13 @@ def index(request):
         else:
             messages.warning(request, form.errors)
             return HttpResponseRedirect('/')
-        
+    current_user = request.user
+    posts = Post.objects.filter(user_id = current_user.id)    
     formlog = LoginForm
     formsign = SignUpForm
     context = {'formlog': formlog,
                'formsign': formsign,
+               'posts': posts,
                'page': 'Home',} 
     return render(request, 'index.html', context)
 
