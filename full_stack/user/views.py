@@ -60,5 +60,5 @@ def user_addpost(request):
             data.user_id = current_user.id
             data.save()
             messages.success(request, "Your post has been created.")
-            return render(request, 'user_posts.html')
+            return HttpResponseRedirect('/user/post')
         return HttpResponseRedirect(url)

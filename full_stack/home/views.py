@@ -44,7 +44,7 @@ def index(request):
             messages.warning(request, form.errors)
             return HttpResponseRedirect('/')
     current_user = request.user
-    posts = Post.objects.filter(user_id = current_user.id)    
+    posts = Post.objects.all()    
     formlog = LoginForm
     formsign = SignUpForm
     context = {'formlog': formlog,

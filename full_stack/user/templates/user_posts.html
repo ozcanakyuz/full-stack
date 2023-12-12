@@ -4,43 +4,47 @@
 {% block body %}
 
 <!-- Header -->
-<header>
+<header class="mb-4">
     <div class="header m-auto">
         <div class="container" style="position: relative;">
             <h2 class="text-light px-2 m-auto border-bottom" id="navbar-text">MY POSTS</h2>
         </div>
     </div>
 </header>
-<div class="text-center mt-4">
-    <a href="/user/newpost" class="btn btn-primary px-5 py-3 text-light"> ADD </a>
-</div>
+
 <!-- Header -->
 
-{% if messages%}
+{% comment %} {% if messages %}
     {% for message in messages %}
-        <div class="alert alert-{{message.tags}} w-50 my-4 shadow-lg m-auto" role="alert">
+        <div class="alert alert-{{message.tags}} w-50 rounded text-center shadow-lg m-auto" role="alert">
             {{ message }}
         </div>
     {% endfor %}
-{% endif %}
+{% endif %} {% endcomment %}
 
-<div class="container">
-    {% for post in posts %}
-        <div class="media mb-4">
-            {% if post.image %}
-            <img src="{{ post.image.url }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-            {% else %}
-            <img src="{% static 'img/cat-6.jpg' %}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-            {% endif %}
-            
-            <div class="media-body">
-                <h5>{{ post.content }}</h5>
-                <div class="py-3">
-                    <p>{{ post.user.get_full_name }} <small> - <i>{{ post.create_at }}</i></small></p>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
+
+<div class="text-center my-4">
+    <a href="/user/newpost" class="btn btn-primary px-5 py-3 text-light"> ADD </a>
 </div>
+<div class="card-group mx-5 mt-5" style="gap: 1rem; position: static !important;">
+    {% for post in posts %}
+      <div class="card align-items-center rounded">
+        {% if post.image %}
+        <img src="{{ post.image.url }}" class="card-img-top py-4 w-75" alt="...">
+        {% else %}
+        <img src="{% static 'img/cat-6.jpg' %}" class="card-img-top py-4 w-75" alt="...">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ post.user.get_full_name }}</h5>
+          {% comment %}* {{ post.title }} {% endcomment %}
+          <p class="card-text">{{ post.content }}</p>
+          <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
+              <btn class="btn btn-outline-warning rounded float-left">Detail..</btn>
+              <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn btn-outline-danger rounded float-right">Remove</button></a>
+        </div>
+      </div>
+      {% endfor %}
+
+  </div>
 
 {% endblock %}

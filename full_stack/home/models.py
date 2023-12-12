@@ -62,15 +62,16 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     create_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.title
     
     def image_tag(self):
-        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
-    #! Admin tarafindaki 'image_tag' ifadesini kullanmak için alttaki kodu yazmak gerekiyor.
-    image_tag.short_description = 'Image'
+        if self.image:
+            return mark_safe('<img src="%s" width="50" height="50" />' % self.image.url)
+        return None
+    image_tag.short_description = 'Image Preview'
 
 class PostForm(ModelForm):
     class Meta:
@@ -85,6 +86,9 @@ class Images(models.Model):
 
     def __str__(self):
         return self.title
+    
     def image_tag(self):
-        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
-    image_tag.short_description = 'Image'
+        if self.image:
+            return mark_safe('<img src="%s" width="50" height="50" />' % self.image.url)
+        return None
+    image_tag.short_description = 'Image Preview'
