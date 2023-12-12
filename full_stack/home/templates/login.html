@@ -1,7 +1,19 @@
+{% extends "base.html" %}
 {% load static %}
 
-<div class="containerlog m-auto modal fade" id="containerlog" tabindex="-1" role="dialog" aria-labelledby="containerlogTitle" aria-hidden="true">
-    <div class="form-containerlog sign-up-containerlog" role="document">
+{% block body %}
+
+
+<!-- Log In Start -->
+<div class="containerlog" id="containerlog">
+	{% if messages %}
+		{% for message in messages %}
+			<div class="alert alert-{{message.tags}}" role="alert" style="position:absloute; float: right;">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endif %}
+	<div class="form-containerlog sign-up-containerlog">
 		<form action="POST">
 			<h1>Create Account</h1>
 			<div class="social-containerlog">
@@ -16,8 +28,8 @@
 			<button>Sign Up</button>
 		</form>
 	</div>
+	
 	<div class="form-containerlog sign-in-containerlog">
-        
         {% comment %} LOG IN {% endcomment %}
 		<form action"/login" method="POST">
             {% csrf_token %}
@@ -28,10 +40,10 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your account</span>
-			<input type="text" name="username" placeholder="Username"/>
+			<input type="username" name="username" placeholder="Username"/>
 			<input type="password" name="password" placeholder="Password"/>
 			<a href="#">Forgot your password?</a>
-			<button type="submit" id="sendMessageButton">Sign In</button>
+			<button type="submit">Sign In</button>
 		</form>
         
 	</div>
@@ -50,3 +62,7 @@
 		</div>
 	</div>
 </div>
+<!-- Log In End -->
+
+
+{% endblock %}
