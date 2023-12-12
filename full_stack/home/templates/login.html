@@ -1,20 +1,8 @@
-{% extends 'base.html' %}
 {% load static %}
 
-{% block body %}
-<!-- Header -->
-<header>
-    <div class="header m-auto">
-        <div class="container" style="position: relative;">
-            <h2 class="text-light px-2 border-bottom" id="navbar-text">LOG-IN & SIGN-UP</h2>
-        </div>
-    </div>
-</header>
-<!-- Header -->
-
-<div class="containerlog m-auto" id="containerlog">
-	<div class="form-containerlog sign-up-containerlog">
-		<form action="#">
+<div class="containerlog m-auto modal fade" id="containerlog" tabindex="-1" role="dialog" aria-labelledby="containerlogTitle" aria-hidden="true">
+    <div class="form-containerlog sign-up-containerlog" role="document">
+		<form action="POST">
 			<h1>Create Account</h1>
 			<div class="social-containerlog">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -29,7 +17,10 @@
 		</form>
 	</div>
 	<div class="form-containerlog sign-in-containerlog">
-		<form action="#">
+        
+        {% comment %} LOG IN {% endcomment %}
+		<form action"/login" method="POST">
+            {% csrf_token %}
 			<h1>Sign in</h1>
 			<div class="social-containerlog">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -37,11 +28,12 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your account</span>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
+			<input type="text" name="username" placeholder="Username"/>
+			<input type="password" name="password" placeholder="Password"/>
 			<a href="#">Forgot your password?</a>
-			<button>Sign In</button>
+			<button type="submit" id="sendMessageButton">Sign In</button>
 		</form>
+        
 	</div>
 	<div class="overlay-containerlog">
 		<div class="overlay">
@@ -58,4 +50,3 @@
 		</div>
 	</div>
 </div>
-{% endblock body %}

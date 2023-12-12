@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render
 
 from home.forms import LoginForm
@@ -17,7 +17,7 @@ def navbar(request):
     context = {'profile': profile}
     return render(request, 'navbar.html', context)
 
-#! LOG IN 
+#! LOG IN / LOG OUT / SIGN UP
 def login_view(request):
     if request.method == 'POST':  #check post
         form = LoginForm(request.POST)
@@ -36,4 +36,9 @@ def login_view(request):
 
     form = LoginForm
     context = {'form': form,} 
-    return render(request, 'navbar.html', context)
+    return render(request, 'index.html', context)
+
+#* LOG OUT
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
