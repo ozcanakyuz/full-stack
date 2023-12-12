@@ -4,10 +4,11 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render
 
-from home.forms import LoginForm
+from home.forms import LoginForm, SignUpForm
 from home.models import UserProfile
 
-#! LOG IN
+#! LOG IN & SIGN-UP
+
 def index(request):
     if request.method == 'POST':  #check post
         form = LoginForm(request.POST)
@@ -23,13 +24,34 @@ def index(request):
             else:
                 messages.warning(request, "Girilen Bilgiler Hatali Tekrar Deneyiniz {}".format(username))
                 return HttpResponseRedirect('/')
-
-    form = LoginForm
-    context = {'form': form,
+    elif request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            #?Create data in profile table for user
+            current_user = request.user
+            data = UserProfile()
+            data.user_id = current_user.id
+            data.image="images/users/user.png"
+            data.save()
+            messages.success(request, 'Your account has been created!')
+            return HttpResponseRedirect('/')
+        else:
+            messages.warning(request, form.errors)
+            return HttpResponseRedirect('/')
+        
+    formlog = LoginForm
+    formsign = SignUpForm
+    context = {'formlog': formlog,
+               'formsign': formsign,
                'page': 'Home',} 
     return render(request, 'index.html', context)
 
-@login_required(login_url='/login') # Check login
+
 def navbar(request):
     current_user = request.user
     profile = UserProfile.objects.get(user_id = current_user.pk)
@@ -60,5 +82,3 @@ def navbar(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
-
-#! SIGN-UP

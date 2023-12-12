@@ -59,15 +59,14 @@
                 </a>
                 <div id="myDropdown" class="dropdown-content mt-2 rounded">
                     <a href="/user">Profile</a>
-                    <a href="/comments">My Comments</a>
-                    <a href="/settings">Settings</a>
+                    <a href="/user/posts">My Posts</a>
+                    <a href="/user/settings">Settings</a>
                     <a href="/logout">Log Out</a>
                 </div>
             </div>
             {% else %}
             <div class="dropdown">
-                <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="/login" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerlog">
-                    {% comment %} data-toggle="modal" data-target="#containerlog" {% endcomment %}
+                <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerlog">
                     <i class="fa-regular fa-user text-dark"></i>
                 </a>
             </div>
@@ -95,66 +94,6 @@
 {% endif %}
 
 
-
-{% comment %}!-- Log In Start --> {% endcomment %}
-<div class="containerlog m-auto modal fade" id="containerlog">
-
-    {% comment %} ! SIGN UP {% endcomment %}
-	<div class="form-containerlog sign-up-containerlog">
-		<form action="/signup" method="POST">
-            {% csrf_token %}
-			<h1>Create Account</h1>
-			<div class="social-containerlog">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>or use your email for registration</span>
-			<input type="text" name="" placeholder="Name"/>
-			<input type="email" name="" placeholder="Email"/>
-			<input type="password" name="" placeholder="Password"/>
-			<button>Sign Up</button>
-		</form>
-	</div>
-	
-	<div class="form-containerlog sign-in-containerlog">
-        {% comment %} LOG IN {% endcomment %}
-		<form action"/login" method="POST">
-            {% csrf_token %}
-			<h1>Sign in</h1>
-			<div class="social-containerlog">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>or use your account</span>
-			<input type="username" name="username" placeholder="Username"/>
-			<input type="password" name="password" placeholder="Password"/>
-			<a href="#">Forgot your password?</a>
-			<button type="submit">Sign In</button>
-		</form>
-        
-	</div>
-	<div class="overlay-containerlog">
-		<div class="overlay">
-			<div class="overlay-panel overlay-left">
-				<h1>Welcome Back!</h1>
-				<p>To keep connected with us please login with your personal info</p>
-				<button class="ghost" id="signIn">Sign In</button>
-			</div>
-			<div class="overlay-panel overlay-right">
-				<h1>Hello, Friend!</h1>
-				<p>Enter your personal details and start journey with us</p>
-				<button class="ghost" id="signUp">Sign Up</button>
-			</div>
-		</div>
-	</div>
-</div>
-{% comment %} !-- Log In End --> {% endcomment %}
-
-
-
-
-{% comment %} {% include 'login.html' %} {% endcomment %}
+{% include 'login.html' %}
 
 {% endblock %}
