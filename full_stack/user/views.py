@@ -25,7 +25,9 @@ def user_settings(request):
 def user_post(request):
     current_user = request.user
     posts = Post.objects.filter(user_id = current_user.id)
+    profile = UserProfile.objects.get(user_id = current_user.pk)
     context = {'posts': posts,
+               'profile': profile,
                'page': 'USER POSTS',}
     return render(request, 'user_posts.html', context)
 

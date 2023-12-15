@@ -11,16 +11,7 @@
         </div>
     </div>
 </header>
-
 <!-- Header -->
-
-{% comment %} {% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{message.tags}} w-50 rounded text-center shadow-lg m-auto" role="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %} {% endcomment %}
 
 
 <div class="text-center my-4">
@@ -39,12 +30,11 @@
           {% comment %}* {{ post.title }} {% endcomment %}
           <p class="card-text">{{ post.content }}</p>
           <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
-              <btn class="btn btn-outline-warning rounded float-left">Detail..</btn>
-              <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn btn-outline-danger rounded float-right">Remove</button></a>
         </div>
+        <btn class="btn btn-outline-warning rounded float-left">Detail..</btn>
+        <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn btn-outline-danger rounded float-right">Remove</button></a>
       </div>
       {% endfor %}
-
   </div>
 
 {% endblock %}

@@ -18,8 +18,8 @@ class PostsImagesInline(admin.TabularInline):
     extra = 5
     readonly_fields = ('image_tag',)
 class PostsAdmin(admin.ModelAdmin):
-    list_display = ['title','content','create_at','image_tag']
-    list_filter = ['title','content']
+    list_display = ['user','title','content','create_at','image_tag','status']
+    list_filter = ['title','content','status']
     readonly_fields = ('image_tag',) 
     inlines = [PostsImagesInline]
 admin.site.register(Post, PostsAdmin)

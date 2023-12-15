@@ -58,10 +58,12 @@ class UserProfileForm(ModelForm):
 
 #! POST FORM 
 class Post(models.Model):
+    STATUS = ( (True, 'Ok'),(False, 'No') )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = models.TextField()
     create_at = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(choices=STATUS, default=False)
     image = models.ImageField(upload_to='images/')
 
     def __str__(self):
