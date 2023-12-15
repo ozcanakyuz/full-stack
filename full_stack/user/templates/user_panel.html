@@ -3,8 +3,9 @@
     <h2 class="section-title px-5"><span class="px-2">User Profile</span></h2>
     {% with request.resolver_match.url_name as url_name %}
         <a href="/user" class="dropdown-item {% if url_name == 'index' %}active{% endif %}">User Profile</a>  
+        <a href="/user/post" class="dropdown-item {% if url_name == 'user_posts' %}active{% endif %}">My Posts</a> 
         <a href="/user/comments" class="dropdown-item {% if url_name == 'user_comments' %}active{% endif %}">My Comments</a>  
-        <a href="/user/comments" class="dropdown-item {% if url_name == 'user_settings' %}active{% endif %}">Settings</a> 
+        <a href="/user/settings" class="dropdown-item {% if url_name == 'user_settings' %}active{% endif %}">Settings</a> 
         <a href="/logout" class="dropdown-item">Logout</a>  
     {% endwith %}
 </div>

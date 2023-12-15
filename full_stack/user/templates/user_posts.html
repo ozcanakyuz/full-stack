@@ -19,15 +19,24 @@
 </div>
 <div class="card-group mx-5 mt-5" style="gap: 1rem; position: static !important;">
     {% for post in posts %}
-      <div class="card align-items-center rounded">
+      <div class="card align-items-center rounded mb-3">
         {% if post.image %}
         <img src="{{ post.image.url }}" class="card-img-top py-4 w-75" alt="...">
         {% else %}
         <img src="{% static 'img/cat-6.jpg' %}" class="card-img-top py-4 w-75" alt="...">
         {% endif %}
         <div class="card-body w-100">
-          <h5 class="card-title">{{ post.user.get_full_name }}</h5>
-          {% comment %}* {{ post.title }} {% endcomment %}
+          <div class="d-flex flex-row-reverse justify-content-between">
+            <p class="card-text p-2 rounded 
+                {% if post.status == True %}
+                bg-success
+                {% else %}
+                bg-danger
+                {% endif %}">
+                {{ post.status }}
+            </p>
+            <h5 class="card-title">{{ post.user.get_full_name }}</h5>
+        </div>
           <p class="card-text">{{ post.content }}</p>
           <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
         </div>

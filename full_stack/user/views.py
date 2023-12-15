@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from home.models import Post, PostForm, UserProfile
+from home.models import Comment, Post, PostForm, UserProfile
 
 def index(request):
     current_user = request.user
@@ -66,3 +66,21 @@ def user_addpost(request):
             messages.success(request, "Your post has been created.")
             return HttpResponseRedirect('/user/post')
         return HttpResponseRedirect(url)
+
+
+@login_required(login_url='/login')
+def user_comments(request):
+    current_user = request.user
+    profile = UserProfile.objects.get(user_id = current_user.pk)
+    comments = Comment.objects.filter(user_id = current_user.id)
+    context = {'comments': comments,
+               'profile': profile,}
+    return render(request, 'user_comments.html', context)
+
+@login_required(login_url='/login') # Check login
+def user_deletecomment(request,id):
+    current_user = request.user
+    Comment.objects.filter(id=id, user_id=current_user.id).delete()
+    messages.success(request, 'Comment deleted..')
+    return HttpResponseRedirect('/user/comments')
+        
