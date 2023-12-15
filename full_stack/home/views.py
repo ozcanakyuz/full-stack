@@ -4,8 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render
 
-from home.forms import LoginForm, SignUpForm
-from home.models import Post, UserProfile
+
+from home.forms import CommentForm, LoginForm, SignUpForm
+from home.models import Comment, Post, UserProfile
 
 #! LOG IN & SIGN-UP
 
@@ -56,3 +57,33 @@ def index(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def post_detail(request, id):
+    # current_user = request.user
+    # post_detail = Post.objects.filter(id=id, user_id=current_user.id)
+    current_user = request.user
+    profile = UserProfile.objects.get(user_id = current_user.pk)
+    comments = Comment.objects.filter(post_id=id, status=True)
+    post_detail = Post.objects.get(pk=id)
+    context = {'post_detail': post_detail,
+               'comments': comments,
+               'profile': profile,}
+    return render(request, 'post_detail.html', context)
+
+
+def addcomment(request,id):
+    url = request.META.get('HTTP_REFERER')  # get last url
+    if request.method == 'POST':  # check post
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            data = Comment()  # create relation with model
+            data.comment = form.cleaned_data['comment']
+            data.ip = request.META.get('REMOTE_ADDR')
+            data.post_id=id
+            current_user= request.user
+            data.user_id=current_user.id
+            data.save()  # save data to table
+            messages.success(request, "Your review has been sent. Thank you for your interest.")
+            return HttpResponseRedirect(url)
+
+    return HttpResponseRedirect(url)

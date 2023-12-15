@@ -65,6 +65,7 @@ class Post(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(choices=STATUS, default=False)
     image = models.ImageField(upload_to='images/')
+    id = models.AutoField(primary_key=True)
 
     def __str__(self):
         return self.title
@@ -94,3 +95,25 @@ class Images(models.Model):
             return mark_safe('<img src="%s" width="50" height="50" />' % self.image.url)
         return None
     image_tag.short_description = 'Image Preview'
+
+
+
+class Comment(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('True', 'True'),
+        ('False', 'False'),
+    )
+    post=models.ForeignKey(Post,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # subject = models.CharField(max_length=50, blank=True)
+    comment = models.CharField(max_length=250,blank=True)
+    ip = models.CharField(max_length=20, blank=True)
+    status=models.CharField(max_length=10,choices=STATUS, default='New')
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment
+
+

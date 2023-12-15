@@ -25,16 +25,21 @@
         {% else %}
         <img src="{% static 'img/cat-6.jpg' %}" class="card-img-top py-4 w-75" alt="...">
         {% endif %}
-        <div class="card-body">
+        <div class="card-body w-100">
           <h5 class="card-title">{{ post.user.get_full_name }}</h5>
           {% comment %}* {{ post.title }} {% endcomment %}
           <p class="card-text">{{ post.content }}</p>
           <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
         </div>
-        <btn class="btn btn-outline-warning rounded float-left">Detail..</btn>
-        <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn btn-outline-danger rounded float-right">Remove</button></a>
+        <div class="text-right w-100 p-2">
+          {% comment %} <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerdetail">Detail..</a> {% endcomment %}
+          <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL..</a>
+          <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn btn-outline-danger rounded float-left">REMOVE</button></a>
+        </div>
       </div>
-      {% endfor %}
-  </div>
+    {% endfor %}
+</div>
+
+{% comment %} {% include "post_detail.html" %} {% endcomment %}
 
 {% endblock %}

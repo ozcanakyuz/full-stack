@@ -41,9 +41,11 @@ def user_deletepost(request,id):
 @login_required(login_url='/login')
 def user_newpost(request):
     current_user = request.user
+    profile = UserProfile.objects.get(user_id = current_user.pk)
     post = Post.objects.filter(user_id = current_user.id)
     context = {'page': 'USER NEW POST',
-               'post': post,}
+               'post': post,
+               'profile': profile,}
     return render(request, 'user_newpost.html', context)
     
 @login_required(login_url='/login')
