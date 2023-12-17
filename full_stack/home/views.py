@@ -57,7 +57,26 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+
 def post_detail(request, id):
+    url = request.META.get('HTTP_REFERER')
+    if request.method == 'POST':  #check post
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, "You have successfully logged in {}".format(user.username))
+                    return HttpResponseRedirect(url)
+                else:
+                    messages.warning(request, "Girilen Bilgiler Hatali Tekrar Deneyiniz {}".format(username))
+                    return HttpResponseRedirect(url)
+            else:
+                messages.warning(request, form.errors)
+                return HttpResponseRedirect(url)
+
     if request.user.is_authenticated:
         #* Kullanıcı giriş yapmışsa, istediğiniz postları çek
         current_user = request.user
@@ -74,11 +93,39 @@ def post_detail(request, id):
         comments = Comment.objects.filter(post_id=id, status='True')
         repcomments = ReplyComment.objects.filter(comment_id=id, status='True')
         post_detail = Post.objects.get(pk=id)
+        posts = Post.objects.filter(status='True')
+        formlog = LoginForm
         context = {'post_detail': post_detail,
                    'comments': comments,
+                   'formlog': formlog,
+                    'posts': posts,
                    'repcomments': repcomments,
                    'page': 'POST DETAIL',}
         return render(request, 'post_detail.html', context)
+
+
+# def post_detail(request, id):
+#     if request.user.is_authenticated:
+#         #* Kullanıcı giriş yapmışsa, istediğiniz postları çek
+#         current_user = request.user
+#         profile = UserProfile.objects.get(user_id = current_user.pk)
+#         comments = Comment.objects.filter(post_id=id, status='True')
+#         repcomments = ReplyComment.objects.filter(comment_id=id, status='True') #? "status=True" not working!
+#         post_detail = Post.objects.get(pk=id)
+#         context = {'post_detail': post_detail,
+#                     'comments': comments,
+#                     'repcomments': repcomments,
+#                     'profile': profile,}
+#         return render(request, 'post_detail.html', context)
+#     else:
+#         comments = Comment.objects.filter(post_id=id, status='True')
+#         repcomments = ReplyComment.objects.filter(comment_id=id, status='True')
+#         post_detail = Post.objects.get(pk=id)
+#         context = {'post_detail': post_detail,
+#                    'comments': comments,
+#                    'repcomments': repcomments,
+#                    'page': 'POST DETAIL',}
+#         return render(request, 'post_detail.html', context)
 
 def addcomment(request,id):
     url = request.META.get('HTTP_REFERER')

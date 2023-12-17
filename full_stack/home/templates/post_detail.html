@@ -14,17 +14,9 @@
 <!-- Header -->
 
 {% comment %}!-- Card Detail --> {% endcomment %}
-{% comment %} modal fade {% endcomment %}
 <div class="containerlog m-auto px-3" id="containerdetail">
-    {% comment %} <div class="text-right w-100 p-1 m-1">
-        <btn class="btn btn-outline-danger rounded">CLOSE</btn>
-    </div> {% endcomment %}
     <div class="card align-items-center rounded my-4">
-        {% if post_detail.image %}
-        <img src="{{ post_detail.image.url }}" class="card-img-top" alt="...">
-        {% else %}
-        <img src="" class="card-img-top py-4 w-75" alt="NO PHOTO!!">
-        {% endif %}
+        <img src="{{ post_detail.image.url }}" class="card-img-top" alt="NO PHOTO!!">
     </div>
     <div class="card-body w-100 pb-3">
         <h5 class="card-title">{{ post_detail.user.get_full_name }}</h5>
@@ -60,7 +52,7 @@
                     {% if user.id is not None %}
                         <input type="submit" value="Reply" class="btn btn-success float-right rounded shadow-sm ml-2">
                     {% else %}
-                        <a href="#" type="button" data-toggle="modal" data-target="#containerlog">You must be logged in to post a review</a>
+                    <a href="#" type="button" data-toggle="modal" data-target="#containerlog"><i class="fa-regular fa-user text-dark px-2"></i>You must be logged in to post a review</a>
                     {% endif %} 
                     </div>
                 </form>
@@ -98,13 +90,13 @@
         {% if user.id is not None %}
             <input type="submit" value="Leave Your Review" class="btn btn-outline-success px-3 mt-2 rounded shadow-sm float-right">
         {% else %}
-            <a href="#" type="button" data-toggle="modal" data-target="#containerlog">You must be logged in to post a review</a>
+            <a href="#" type="button" data-toggle="modal" data-target="#containerlog"><i class="fa-regular fa-user text-dark px-2"></i>You must be logged in to post a review</a>
         {% endif %} 
         </div>
     </form>
 </div>
-
-
 {% comment %} !-- Card Detail --> {% endcomment %}
+
+{% include 'login.html' %}
 
 {% endblock %}
