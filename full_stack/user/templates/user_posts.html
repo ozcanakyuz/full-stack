@@ -28,10 +28,12 @@
         <div class="card-body w-100">
           <div class="d-flex flex-row-reverse justify-content-between">
             <p class="card-text p-2 rounded 
-                {% if post.status == True %}
+                {% if post.status == 'True' %}
                 bg-success
-                {% else %}
+                {% elif post.status == 'False' %}
                 bg-danger
+                {% else %}
+                bg-warning
                 {% endif %}">
                 {{ post.status }}
             </p>

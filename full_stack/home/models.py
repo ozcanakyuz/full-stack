@@ -58,12 +58,13 @@ class UserProfileForm(ModelForm):
 
 #! POST FORM 
 class Post(models.Model):
-    STATUS = ( (True, 'Ok'),(False, 'No') )
+    STATUS = (('New', 'New'),('True', 'True'),('False', 'False'))
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = models.TextField()
     create_at = models.DateTimeField(auto_now_add=True)
-    status = models.BooleanField(choices=STATUS, default=False)
+    status = models.CharField(max_length=5, choices=STATUS, default='New')
+    # status = models.BooleanField(choices=STATUS, default=False)
     image = models.ImageField(upload_to='images/')
     id = models.AutoField(primary_key=True)
 
@@ -99,12 +100,13 @@ class Images(models.Model):
 
 
 class Comment(models.Model):
-    STATUS = (('New', 'New'),('True', 'True'),('False', 'False'),)
+    STATUS = (('New', 'New'),('True', 'True'),('False', 'False'))
     post=models.ForeignKey(Post,on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=250,blank=True)
+    comment = models.CharField(max_length=250,blank=False)
     ip = models.CharField(max_length=20, blank=True)
-    status=models.CharField(max_length=10,choices=STATUS, default='New')
+    status = models.CharField(max_length=5, choices=STATUS, default='New')
+   # status = models.BooleanField(choices=STATUS, default=False)
     create_at=models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now=True)
 
@@ -112,12 +114,12 @@ class Comment(models.Model):
         return self.comment
 
 class ReplyComment(models.Model):
-    STATUS = (('New', 'New'),('True', 'True'),('False', 'False'),)
+    STATUS = (('New', 'New'),('True', 'True'),('False', 'False'))
     comment=models.ForeignKey(Comment,on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     repcomment = models.CharField(max_length=250,blank=False)
     ip = models.CharField(max_length=20, blank=True)
-    status=models.CharField(max_length=10,choices=STATUS, default='New')
+    status = models.CharField(max_length=5, choices=STATUS, default='New')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now=True)
 

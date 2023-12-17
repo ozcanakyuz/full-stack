@@ -42,7 +42,7 @@ def index(request):
         else:
             messages.warning(request, form.errors)
             return HttpResponseRedirect('/')
-    posts = Post.objects.filter(status=True)
+    posts = Post.objects.filter(status='True')
     formlog = LoginForm
     # formsign = SignUpForm
     context = {'formlog': formlog,
@@ -62,8 +62,8 @@ def post_detail(request, id):
         #* Kullanıcı giriş yapmışsa, istediğiniz postları çek
         current_user = request.user
         profile = UserProfile.objects.get(user_id = current_user.pk)
-        comments = Comment.objects.filter(post_id=id, status=True)
-        repcomments = ReplyComment.objects.filter(comment_id=id, status=True)
+        comments = Comment.objects.filter(post_id=id, status='True')
+        repcomments = ReplyComment.objects.filter(comment_id=id, status='True') #? "status=True" not working!
         post_detail = Post.objects.get(pk=id)
         context = {'post_detail': post_detail,
                     'comments': comments,
@@ -71,8 +71,8 @@ def post_detail(request, id):
                     'profile': profile,}
         return render(request, 'post_detail.html', context)
     else:
-        comments = Comment.objects.filter(post_id=id, status=True)
-        repcomments = ReplyComment.objects.filter(comment_id=id, status=True)
+        comments = Comment.objects.filter(post_id=id, status='True')
+        repcomments = ReplyComment.objects.filter(comment_id=id, status='True')
         post_detail = Post.objects.get(pk=id)
         context = {'post_detail': post_detail,
                    'comments': comments,
