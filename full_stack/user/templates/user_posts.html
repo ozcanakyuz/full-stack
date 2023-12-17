@@ -15,7 +15,7 @@
 
 
 <div class="text-center my-4">
-  <a class="btn btn-primary rounded px-5 py-3 rounded shadow-lg text-light align-items-center hidden-arrow" href="/post_detail/{{post.id}}" value="{{post.id}}" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerdetail">ADD</a>
+  <a class="btn btn-primary rounded px-5 py-3 rounded text-light align-items-center hidden-arrow" href="/post_detail/{{post.id}}" value="{{post.id}}" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerdetail">ADD</a>
 </div>
 
 <div class="card-group mx-5" style="gap: 1rem; position: static !important;">
@@ -43,15 +43,17 @@
           <p class="card-text">{{ post.content }}</p>
           <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
         </div>
-        <div class="text-right w-100 p-2">
-          {% comment %} <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerdetail">Detail..</a> {% endcomment %}
-          <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL</a>
-          <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn btn-outline-danger rounded float-left">REMOVE</button></a>
+        <div class="text-center w-100 p-2">
+          <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn mt-2 btn-outline-danger rounded">REMOVE</button></a>
+          <a class="btn mt-2 btn-outline-success rounded align-items-center hidden-arrow mx-2" href="/post_detail/{{post.id}}" value="{{post.id}}" type="button" data-toggle="modal" data-target="#postsupdate">UPDATE</a>
+          <a class="btn mt-2 btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL</a>
         </div>
       </div>
     {% endfor %}
 </div>
 
-{% include "user_newpost_modal.html" %}
+{% include 'user_newpost_modal.html' %}
+{% include 'user_posts_update.html' %}
+
 
 {% endblock %}

@@ -290,6 +290,16 @@ div > img {
   max-width: 54%;
 }
 
+#navbar-text-home{
+  align-items: center;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  top: 6rem;
+  position: relative;
+  margin: auto;
+  max-width: 54%;
+}
+
 .header img{
   transform: rotate(330deg);
   position: absolute;
@@ -520,12 +530,14 @@ div > img {
 /*! Responsive */
 @media (max-width: 992px) {
   #navbar-text {
-    left: 6rem !important;
+    /* left: 0rem !important; */
+    margin: auto !important;
     font-size: 1.5rem;
   }
-  .header img {
-    max-width: 25% !important;
-    left: 8rem !important;
+  #navbar-text-home {
+    margin: auto !important;
+    margin-left: 16rem !important;
+    font-size: 1.5rem;
   }
   .card-group{
     display: grid;
@@ -535,12 +547,19 @@ div > img {
 
 @media (max-width: 918px) {
   #navbar-text {
-    left: 6rem !important;
+    /* left: 6rem !important; */
+    margin: auto !important;
+    font-size: 1.5rem;
+  }
+  #navbar-text-home {
+    margin: auto !important;
+    margin-left: 17rem !important;
     font-size: 1.5rem;
   }
   .header img {
     max-width: 25% !important;
     left: 8rem !important;
+    margin-right: 5rem !important;
   }
   .card-group{
     display: grid;
@@ -553,9 +572,14 @@ div > img {
     display: flex;
     flex-direction: column;
   }
+  #navbar-text-home {
+    margin: auto !important;
+    margin-left: 10rem !important;
+    font-size: 1.5rem;
+  }
   .header img {
     max-width: 30% !important;
-    top: .5rem;
+    top: 4rem;
     left: 2rem !important;
   }
   .card-group{
@@ -567,8 +591,14 @@ div > img {
 @media (max-width: 552px) {
   #navbar-text {
     font-size: 1rem;
-    position: absolute;
-    top: 10rem;
+    /* position: absolute;
+    top: 10rem; */
+    margin: auto !important;
+  }
+  #navbar-text-home {
+    margin: auto !important;
+    margin-left: 7rem !important;
+    font-size: 1.5rem;
   }
   .header img {
     max-width: 30% !important;

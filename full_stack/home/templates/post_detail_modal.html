@@ -24,7 +24,7 @@
                 <div class="card-body w-100 pb-3">
                     <a class="btn btn-outline-success px-3 rounded align-items-center float-right hidden-arrow" href="/post_detail/{{post.id}}"><i class="fa-solid fa-arrow-right"></i></a>
                     <h5 class="card-title">{{ post.user.get_full_name }}</h5>
-                    <p class="card-text">{{ post.title }}</p>
+                    <p class="card-text">{{ post.content }}</p>
                     <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
                 </div>
                 <hr>
