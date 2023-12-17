@@ -16,15 +16,15 @@
         <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
       </div>
       <div class="text-right w-100 p-2">
-        <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}" value="{{post.id}}" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerdetail">Detail..</a>
+        <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}" value="{{post.id}}" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerdetail">DETAIL</a>
 
-        <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL..</a>
+        {% comment %} <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL</a> {% endcomment %}
       </div>
     </div>
   {% endfor %}
 </div>
 
 
-{% comment %} {% include "post_detail.html" %} {% endcomment %}
+{% include "post_detail_modal.html" %}
 
 {% endblock %}

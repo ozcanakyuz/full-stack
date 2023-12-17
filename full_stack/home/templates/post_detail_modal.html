@@ -1,0 +1,109 @@
+{% load static %}
+
+{% block body %}
+
+
+
+
+{% comment %}!-- Card Detail --> {% endcomment %}
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" id="containerdetail" tabindex="-1" role="dialog" aria-labelledby="containerdetailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          {% comment %} <h5 class="modal-title" id="containerdetailLabel">{{ post.user.get_full_name }}</h5> {% endcomment %}
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% for post in posts %}
+            <div class="modal-body">
+                <div class="card align-items-center rounded my-4" style="border: none;">
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="PHOTO {{ post.id }}">
+                </div>
+                <div class="card-body w-100 pb-3">
+                    <a class="btn btn-outline-success px-3 rounded align-items-center float-right hidden-arrow" href="/post_detail/{{post.id}}"><i class="fa-solid fa-arrow-right"></i></a>
+                    <h5 class="card-title">{{ post.user.get_full_name }}</h5>
+                    <p class="card-text">{{ post.title }}</p>
+                    <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
+                </div>
+                <hr>
+            </div>
+        {% endfor %}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary rounded px-3" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+{% comment %} ! COMMENTS {% endcomment %}
+{% comment %} {% for comment in comments %}
+<div class="containerlog m-auto px-4 py-3" style="margin-top: 1rem !important;" >
+    <div class="media-body">
+            <h6 class="text-muted"><i>{{ comment.create_at }}</i></h6>
+        <div class="media-body">
+            <div class="body-img d-flex">
+                <img src="{{ comment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle mb-3" style="width:55px; height: 80px;">
+                <div class="body-text" style="display: flex !important; justify-content: space-around; flex-direction: column !important;">
+                    <h4>{{ comment.user.get_full_name }}</h4>
+                    <p>{{ comment.comment }}</p>
+                </div>
+            </div>
+            <div class="media-text" style="display: flex !important; flex-direction: row-reverse;">
+                <a type="text" data-toggle="collapse" data-target="#reply{{comment.id}}" class="btn btn-success rounded shadow-sm " href="">Reply</a><br>
+            </div>
+            <div id="reply{{comment.id}}" class="collapse in w-100">
+                <form method="post" action="/replycomment/{{ comment.id }}"> 
+                    {% csrf_token %}
+                    <div class="form-group mt-2">
+                        <label for="message">Your Message*</label>
+                        <textarea id="message" cols="30" rows="5" class="form-control" name="repcomment"></textarea>
+                    </div>
+                    <div class="form-group">
+                    {% if user.id is not None %}
+                        <input type="submit" value="Reply" class="btn btn-success float-right rounded shadow-sm ml-2">
+                    {% else %}
+                        <a href="#" type="button" data-toggle="modal" data-target="#containerlog">You must be logged in to post a review</a>
+                    {% endif %} 
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        {% for repcomment in comment.replycomment_set.all %}
+            <div class="media bg-light my-4 px-4 rounded">
+                    <img src="{{ repcomment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:55px; height: 80px;">
+                <div class="media-body border-bottom" style="display: flex; flex-direction: column;">
+                    <h4 class= "h5">{{ repcomment.user.get_full_name }} <small><i class="text-muted"> - {{ repcomment.create_at }}</i></small></h4>
+                    <p>{{ repcomment.repcomment }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+<div class="containerlog m-auto p-3" style="margin-top: 1rem !important;">
+    <form action="/addcomment/{{ post_detail.id }}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="message">Your Message*</label>
+            <textarea id="message" cols="30" rows="5" name="comment" class="form-control"></textarea>
+        </div>
+        <div class="form-group mb-0">
+        {% if user.id is not None %}
+            <input type="submit" value="Leave Your Review" class="btn btn-outline-success px-3 mt-2 rounded shadow-sm float-right">
+        {% else %}
+            <a href="#" type="button" data-toggle="modal" data-target="#containerlog">You must be logged in to post a review</a>
+        {% endif %} 
+        </div>
+    </form>
+</div> {% endcomment %}
+
+{% comment %} !-- Card Detail --> {% endcomment %}
+
+{% endblock %}
