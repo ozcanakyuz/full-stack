@@ -63,7 +63,7 @@ def post_detail(request, id):
         current_user = request.user
         profile = UserProfile.objects.get(user_id = current_user.pk)
         comments = Comment.objects.filter(post_id=id, status=True)
-        repcomments = ReplyComment.objects.filter(comment_id=id)
+        repcomments = ReplyComment.objects.filter(comment_id=id, status=True)
         post_detail = Post.objects.get(pk=id)
         context = {'post_detail': post_detail,
                     'comments': comments,
@@ -72,7 +72,7 @@ def post_detail(request, id):
         return render(request, 'post_detail.html', context)
     else:
         comments = Comment.objects.filter(post_id=id, status=True)
-        repcomments = ReplyComment.objects.filter(comment_id=id)
+        repcomments = ReplyComment.objects.filter(comment_id=id, status=True)
         post_detail = Post.objects.get(pk=id)
         context = {'post_detail': post_detail,
                    'comments': comments,
