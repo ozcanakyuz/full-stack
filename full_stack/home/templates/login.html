@@ -4,7 +4,6 @@
 
 {% comment %}!-- Log In Start --> {% endcomment %}
 <div class="containerlog m-auto modal fade" id="containerlog">
-
     {% comment %} ! SIGN UP {% endcomment %}
 	<div class="form-containerlog sign-up-containerlog">
 		<form action="/signup" method="POST">
@@ -22,9 +21,12 @@
 			<button type="submit">Sign Up</button>
 		</form>
 	</div>
-	
 	<div class="form-containerlog sign-in-containerlog">
-        {% comment %} LOG IN {% endcomment %}
+	{% comment %} ! LOG IN  {% endcomment %}
+		{% comment %} <button type="button" class="btn-close position-absolute m-2 w-25" aria-label="Close">
+			<i class="fa-solid fa-xmarkx"></i>
+		</button> {% endcomment %}
+
 		<form action"/login" method="POST">
             {% csrf_token %}
 			<h1>Sign in</h1>
@@ -39,8 +41,8 @@
 			<a href="#">Forgot your password?</a>
 			<button type="submit">Sign In</button>
 		</form>
-        
 	</div>
+
 	<div class="overlay-containerlog">
 		<div class="overlay">
 			<div class="overlay-panel overlay-left">

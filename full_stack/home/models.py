@@ -99,14 +99,9 @@ class Images(models.Model):
 
 
 class Comment(models.Model):
-    STATUS = (
-        ('New', 'New'),
-        ('True', 'True'),
-        ('False', 'False'),
-    )
+    STATUS = (('New', 'New'),('True', 'True'),('False', 'False'),)
     post=models.ForeignKey(Post,on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # subject = models.CharField(max_length=50, blank=True)
     comment = models.CharField(max_length=250,blank=True)
     ip = models.CharField(max_length=20, blank=True)
     status=models.CharField(max_length=10,choices=STATUS, default='New')
@@ -116,4 +111,20 @@ class Comment(models.Model):
     def __str__(self):
         return self.comment
 
+class ReplyComment(models.Model):
+    STATUS = (('New', 'New'),('True', 'True'),('False', 'False'),)
+    comment=models.ForeignKey(Comment,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    repcomment = models.CharField(max_length=250,blank=False)
+    ip = models.CharField(max_length=20, blank=True)
+    status=models.CharField(max_length=10,choices=STATUS, default='New')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.repcomment
+
+class ReplyCommentForm(ModelForm):
+    class Meta:
+        model = ReplyComment
+        fields = ['repcomment']

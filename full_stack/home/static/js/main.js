@@ -95,3 +95,16 @@ signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
 });
 
+
+// function containerLogClose() {
+//     const login = document.getElementById("containerlog")
+// // Close the login if the user clicks outside of it
+//     document.addEventListener('click', e => {
+//         if (!e.composedPath().includes(login)
+//         ) {
+//             if (login.classList == "containerlog m-auto modal fade show") {
+//                 login.classList.remove("show")
+//             }
+//         }
+//     })
+// }

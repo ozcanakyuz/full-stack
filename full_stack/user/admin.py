@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from home.models import Comment, Images, Post, UserProfile
+from home.models import Comment, Images, Post, ReplyComment, UserProfile
 
 
 #! USER PROFILE 
@@ -22,8 +22,15 @@ class PostsAdmin(admin.ModelAdmin):
 admin.site.register(Post, PostsAdmin)
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['user','comment','post','status','create_at']
+    list_display = ['user','comment','post','create_at','status']
     list_filter = ['status']
     readonly_fields = ('comment','ip','user','post','id')
 
 admin.site.register(Comment, CommentAdmin)
+
+class ReplyCommentAdmin(admin.ModelAdmin):
+    list_display = ['user','repcomment','create_at','status']
+    list_filter = ['status']
+    readonly_fields = ('repcomment','ip','user','id')
+
+admin.site.register(ReplyComment, ReplyCommentAdmin)

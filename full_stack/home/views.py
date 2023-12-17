@@ -6,10 +6,9 @@ from django.shortcuts import render
 
 
 from home.forms import CommentForm, LoginForm, SignUpForm
-from home.models import Comment, Post, UserProfile
+from home.models import Comment, Post, ReplyComment, ReplyCommentForm, UserProfile
 
 #! LOG IN & SIGN-UP
-
 def index(request):
     if request.method == 'POST':  #check post
         form = LoginForm(request.POST)
@@ -59,31 +58,60 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def post_detail(request, id):
-    # current_user = request.user
-    # post_detail = Post.objects.filter(id=id, user_id=current_user.id)
-    current_user = request.user
-    profile = UserProfile.objects.get(user_id = current_user.pk)
-    comments = Comment.objects.filter(post_id=id, status=True)
-    post_detail = Post.objects.get(pk=id)
-    context = {'post_detail': post_detail,
-               'comments': comments,
-               'profile': profile,}
-    return render(request, 'post_detail.html', context)
-
+    if request.user.is_authenticated:
+        #* Kullanıcı giriş yapmışsa, istediğiniz postları çek
+        current_user = request.user
+        profile = UserProfile.objects.get(user_id = current_user.pk)
+        comments = Comment.objects.filter(post_id=id, status=True)
+        repcomments = ReplyComment.objects.all() # comment_id=id, status=True
+        post_detail = Post.objects.get(pk=id)
+        context = {'post_detail': post_detail,
+                    'comments': comments,
+                    'repcomments': repcomments,
+                    'profile': profile,}
+        return render(request, 'post_detail.html', context)
+    else:
+        comments = Comment.objects.filter(post_id=id, status=True)
+        repcomments = ReplyComment.objects.filter(comment_id=id) #, status=True
+        post_detail = Post.objects.get(pk=id)
+        context = {'post_detail': post_detail,
+                   'comments': comments,
+                   'repcomments': repcomments,
+                   'page': 'POST DETAIL',}
+        return render(request, 'post_detail.html', context)
 
 def addcomment(request,id):
-    url = request.META.get('HTTP_REFERER')  # get last url
-    if request.method == 'POST':  # check post
+    url = request.META.get('HTTP_REFERER')
+    if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            data = Comment()  # create relation with model
+            data = Comment() 
             data.comment = form.cleaned_data['comment']
             data.ip = request.META.get('REMOTE_ADDR')
             data.post_id=id
             current_user= request.user
             data.user_id=current_user.id
-            data.save()  # save data to table
+            data.save() 
             messages.success(request, "Your review has been sent. Thank you for your interest.")
             return HttpResponseRedirect(url)
+        else:
+            messages.warning(request, "Lütfen mesaj kutucuklarini doldurunuz!!") 
+    return HttpResponseRedirect(url)
 
+def replycomment(request, id):
+    url = request.META.get('HTTP_REFERER')
+    if request.method == 'POST':
+        form = ReplyCommentForm(request.POST)
+        if form.is_valid():
+            data = ReplyComment() 
+            data.repcomment = form.cleaned_data['repcomment']
+            data.ip = request.META.get('REMOTE_ADDR')
+            data.comment_id=id
+            current_user= request.user
+            data.user_id=current_user.id
+            data.save()
+            messages.success(request, 'Comment replied!')
+            return HttpResponseRedirect(url)
+        else:
+            messages.warning(request, "Lütfen mesaj kutucuklarini doldurunuz!!") 
     return HttpResponseRedirect(url)

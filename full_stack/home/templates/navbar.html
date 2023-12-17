@@ -67,7 +67,7 @@
             </div>
             {% else %}
             <div class="dropdown">
-                <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerlog">
+                <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerlog" onclick="containerLogClose()">
                     <i class="fa-regular fa-user text-dark"></i>
                 </a>
             </div>
@@ -82,13 +82,13 @@
 
 {% if messages and user.id is not None %}
     {% for message in messages %}
-        <div class="alert alert-{{message.tags}} rounded shadow-lg m-auto float-right" role="alert" style="position:unset;">
+        <div class="alert alert-{{message.tags}} rounded shadow-lg m-auto float-right" role="alert" style="position:unset; z-index: 1;">
             {{ message }}
         </div>
     {% endfor %}
     {% else %}
     {% for message in messages %}
-    <div class="alert alert-{{message.tags}} rounded shadow-lg" role="alert" style="position:unset;">
+    <div class="alert alert-{{message.tags}} rounded shadow-lg w-25" role="alert" style="position:absolute; z-index: 1; opacity: .8;">
         {{ message }}
     </div>
     {% endfor %}

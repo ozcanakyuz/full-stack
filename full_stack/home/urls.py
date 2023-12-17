@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout',views.logout_view, name= 'logout_view'),
     path('post_detail/<int:id>',views.post_detail, name= 'post_detail'),
     path('addcomment/<int:id>', views.addcomment, name="addcomment"),
+    path('replycomment/<int:id>', views.replycomment, name="reply_comment"),
 ]

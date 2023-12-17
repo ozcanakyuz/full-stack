@@ -3,9 +3,19 @@
 
 {% block body %}
 
+<!-- Header -->
+<header class="mb-4">
+    <div class="header m-auto">
+        <div class="container" style="position: relative;">
+            <h2 class="text-light px-2 m-auto border-bottom" id="navbar-text">POST DETAIL - "{{ post_detail.title }}"</h2>
+        </div>
+    </div>
+</header>
+<!-- Header -->
+
 {% comment %}!-- Card Detail --> {% endcomment %}
 {% comment %} modal fade {% endcomment %}
-<div class="containerlog m-auto px-3" id="containerdetail" style="margin-top: 4rem !important;">
+<div class="containerlog m-auto px-3" id="containerdetail">
     {% comment %} <div class="text-right w-100 p-1 m-1">
         <btn class="btn btn-outline-danger rounded">CLOSE</btn>
     </div> {% endcomment %}
@@ -25,52 +35,48 @@
 
 {% comment %} ! COMMENTS {% endcomment %}
 {% for comment in comments %}
-<div class="containerlog m-auto p-4" style="margin-top: 1rem !important;" >
-    <div class="media-body d-flex">
-        <img src="{{ comment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle mb-3" style="width:60px;">
-        <div>
-            <h4>{{ comment.user.get_full_name }} <small class="h6"> - <i>{{ comment.create_at }}</i></small></h4>
+<div class="containerlog m-auto px-4 py-3" style="margin-top: 1rem !important;" >
+    <div class="media-body">
+            <h6 class="text-muted"><i>{{ comment.create_at }}</i></h6>
+        <div class="media-body d-flex flex-column align-items-center">
+            <img src="{{ comment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle mb-3" style="width:60px;">
+            <h4>{{ comment.user.get_full_name }}</h4>
+            
             <p>{{ comment.comment }}</p>
-        </div>
-        <hr>
-        <div class="media-text d-flex flex-column-reverse">
-            <a type="text" data-toggle="collapse" data-target="#reply{{comment.id}}" class="btn float-right btn-success rounded shadow-sm " href="">Reply</a><br>
-        </div>
-
-            <div id="reply{{comment.id}}" class="collapse in">
-
-                <form method="post" action="/replycomment/{{comment.id}}"> 
+            <div class="media-text">
+                <a type="text" data-toggle="collapse" data-target="#reply{{comment.id}}" class="btn btn-success rounded shadow-sm " href="">Reply</a><br>
+            </div>
+            <div id="reply{{comment.id}}" class="collapse in w-100">
+                <form method="post" action="/replycomment/{{ comment.id }}"> 
                     {% csrf_token %}
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label for="message">Your Message*</label>
                         <textarea id="message" cols="30" rows="5" class="form-control" name="repcomment"></textarea>
                     </div>
-                    <div class="form-group mb-0">
+                    <div class="form-group">
                     {% if user.id is not None %}
                         <input type="submit" value="Reply" class="btn btn-success float-right rounded shadow-sm ml-2">
                     {% else %}
-                        <a href="/login">You must be logged in to post a review</a>
+                        <a href="#" type="button" data-toggle="modal" data-target="#containerlog">You must be logged in to post a review</a>
                     {% endif %} 
                     </div>
                 </form>
             </div>
-        {% if repcomments %}
-            {% for repcomment in repcomments %}
+        </div>
+        <hr>
+        {% for repcomment in comment.replycomment_set.all %}
             <div class="media bg-light mt-4 p-4 rounded">
                 <img src="{{ repcomment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:60px;">
                 <div class="media-body">
                     <h4>{{ repcomment.user.get_full_name }} <small> - <i>{{ repcomment.create_at }}</i></small></h4>
                     <p>{{ repcomment.repcomment }}</p>
-                   <hr>
+                <hr>
                 </div>
             </div>
-            {% endfor %}
-        {% endif %}
+        {% endfor %}
     </div>
 </div>
 {% endfor %}
-
-
 <div class="containerlog m-auto p-3" style="margin-top: 1rem !important;">
     <form action="/addcomment/{{ post_detail.id }}" method="POST">
         {% csrf_token %}
@@ -90,14 +96,11 @@
         {% if user.id is not None %}
             <input type="submit" value="Leave Your Review" class="btn btn-outline-success px-3 mt-2 rounded shadow-sm float-right">
         {% else %}
-            <a href="/login">You must be logged in to post a review</a>
+            <a href="#" type="button" data-toggle="modal" data-target="#containerlog">You must be logged in to post a review</a>
         {% endif %} 
         </div>
     </form>
 </div>
-
-
-
 
 
 {% comment %} !-- Card Detail --> {% endcomment %}

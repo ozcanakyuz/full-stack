@@ -1,25 +1,39 @@
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from home.models import Comment, Post, PostForm, UserProfile
+from user.forms import UserUpdateForm, ProfileUpdateForm
 
+@login_required(login_url='/login') # Check login
 def index(request):
-    current_user = request.user
-    profile = UserProfile.objects.get(user_id = current_user.pk)
-    context = {'profile': profile,
-               'page': 'USER PROFILE',}
-    return render(request, 'user_profile.html', context)
+        current_user = request.user
+        profile = UserProfile.objects.get(user_id = current_user.pk)
+        context = {'profile': profile,
+                   'page': 'USER PROFILE',}
+        return render(request, 'user_profile.html', context)
 
+@login_required(login_url='/login') # Check login
 def user_settings(request):
-    current_user = request.user
-    profile = UserProfile.objects.get(user_id = current_user.pk)
-    context = {'profile': profile,
-               'page': 'USER SETTINGS',}
-    return render(request, 'user_settings.html', context)
-
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user) # request.user is user  data
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your account has been updated!')
+            return HttpResponseRedirect('/user')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.userprofile)
+        current_user = request.user
+        profile = UserProfile.objects.get(user_id = current_user.pk)
+        context = {'user_form': user_form,
+                   'profile_form': profile_form,
+                   'page':'SETTINGS',
+                   'profile': profile,}
+        return render(request, 'user_settings.html', context)
 
 @login_required(login_url='/login')
 def user_post(request):
