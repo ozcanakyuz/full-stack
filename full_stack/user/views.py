@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 
-from home.models import Comment, Post, PostForm, UserProfile, UserProfileForm
+from home.models import Comment, Post, PostForm, ReplyComment, UserProfile, UserProfileForm
 
 @login_required(login_url='/login') # Check login
 def index(request):
@@ -135,7 +135,9 @@ def user_comments(request):
     current_user = request.user
     profile = UserProfile.objects.get(user_id = current_user.pk)
     comments = Comment.objects.filter(user_id = current_user.id)
+    repcomments = ReplyComment.objects.filter(user_id = current_user.id)
     context = {'comments': comments,
+               'repcomments': repcomments,
                'profile': profile,
                'page': 'USER COMMENTS',}
     return render(request, 'user_comments.html', context)
