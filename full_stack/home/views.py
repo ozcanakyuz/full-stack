@@ -42,21 +42,29 @@ def index(request):
         else:
             messages.warning(request, form.errors)
             return HttpResponseRedirect('/')
-    posts = Post.objects.filter(status='True')
-    formlog = LoginForm
-    # formsign = SignUpForm
-    context = {'formlog': formlog,
-               # 'formsign': formsign,
-               'posts': posts,
-               'page': 'Home',} 
-    return render(request, 'index.html', context)
+    if request.user.is_authenticated:
+        current_user = request.user
+        profile = UserProfile.objects.get(user_id=current_user.pk)
+        posts = Post.objects.filter(status='True')
+        formlog = LoginForm
+        context = {'formlog': formlog,
+                   'profile': profile,
+                   'posts': posts,
+                   'page': 'Home',} 
+        return render(request, 'index.html', context)
+    else:
+        posts = Post.objects.filter(status='True')
+        formlog = LoginForm
+        context = {'formlog': formlog,
+                    'posts': posts,
+                    'page': 'Home',} 
+        return render(request, 'index.html', context)
 
 
 #! LOG OUT
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
-
 
 def post_detail(request, id):
     url = request.META.get('HTTP_REFERER')

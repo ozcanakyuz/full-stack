@@ -31,8 +31,8 @@
     <div class="media-body">
             <h6 class="text-muted"><i>{{ comment.create_at }}</i></h6>
         <div class="media-body">
-            <div class="body-img d-flex">
-                <img src="{{ comment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle mb-3" style="width:55px; height: 80px;">
+            <div class="body-img d-flex mt-3">
+                <img src="{{ comment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle mb-3" style="width:60px; height: 60px;">
                 <div class="body-text" style="display: flex !important; justify-content: space-around; flex-direction: column !important;">
                     <h4>{{ comment.user.get_full_name }}</h4>
                     <p>{{ comment.comment }}</p>
@@ -61,7 +61,7 @@
         <hr>
         {% for repcomment in comment.replycomment_set.all %}
             <div class="media bg-light my-4 px-4 rounded">
-                    <img src="{{ repcomment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:55px; height: 80px;">
+                    <img src="{{ repcomment.user.userprofile.image.url }}" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:60px; height: 60px;">
                 <div class="media-body border-bottom" style="display: flex; flex-direction: column;">
                     <h4 class= "h5">{{ repcomment.user.get_full_name }} <small><i class="text-muted"> - {{ repcomment.create_at }}</i></small></h4>
                     <p>{{ repcomment.repcomment }}</p>
