@@ -27,7 +27,11 @@
     </thead>
     <tbody class="align-middle">
         <tr>
-            <td class="align-middle"><img src="{{  profile.image.url }}" alt="" style="width: 100px;"></td>
+            {% if profile.image %}
+            <td class="align-middle"><img src="{{ profile.image.url }}" alt="..." style="width: 100px;"></td>
+            {% else %}
+            <td class="align-middle"><img src="" alt="NO PHOTO!" style="width: 100px;"></td>
+            {% endif %}
             <td class="align-middle">{{ profile.user.get_full_name }}</td>
             <td class="align-middle">{{ profile.user.email }}</td>
             <td class="align-middle">{{ profile.phone }}</td>

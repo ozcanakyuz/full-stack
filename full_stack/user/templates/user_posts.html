@@ -45,7 +45,8 @@
         </div>
         <div class="text-center w-100 p-2">
           <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn mt-2 btn-outline-danger rounded">REMOVE</button></a>
-          <a class="btn mt-2 btn-outline-success rounded align-items-center hidden-arrow mx-2" href="/post_detail/{{post.id}}" value="{{post.id}}" type="button" data-toggle="modal" data-target="#postsupdate">UPDATE</a>
+          {% comment %} <a class="btn mt-2 btn-outline-success rounded align-items-center hidden-arrow mx-2" href="/post_detail/{{post.id}}" value="{{post.id}}" type="button" data-toggle="modal" data-target="#postsupdate">UPDATE</a> {% endcomment %}
+          <a class="btn mt-2 btn-outline-success rounded align-items-center hidden-arrow mx-2" href="update/{{post.id}}">UPDATE</a>
           <a class="btn mt-2 btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL</a>
         </div>
       </div>
@@ -53,7 +54,7 @@
 </div>
 
 {% include 'user_newpost_modal.html' %}
-{% include 'user_posts_update.html' %}
+{% comment %} {% include 'user_posts_update.html' %} {% endcomment %}
 
 
 {% endblock %}

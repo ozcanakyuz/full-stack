@@ -3,35 +3,32 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from home.models import Comment, Post, PostForm, UserProfile, UserProfileForm
-from user.forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required(login_url='/login') # Check login
 def index(request):
     profile = UserProfile.objects.get_or_create(user=request.user)[0]
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
-        formPassword = PasswordChangeForm(request.user, request.POST)
+        # formPassword = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
             return redirect('user_profile')
-        elif formPassword.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
-            return HttpResponseRedirect('/user')
+        # elif formPassword.is_valid():
+        #     user = form.save()
+        #     update_session_auth_hash(request, user)  # Important!
+        #     messages.success(request, 'Your password was successfully updated!')
+        #     return HttpResponseRedirect('/user')
     else:
         form = UserProfileForm(instance=profile)
-        formPassword = PasswordChangeForm(request.user)
+        # formPassword = PasswordChangeForm(request.user)
         context = {'profile': profile,
                    'form': form,
-                   'formPassword': formPassword,
+                #    'formPassword': formPassword,
                    'page': 'USER PROFILE',}
         return render(request, 'user_profile.html', context)
-
-
 
 
 # @login_required
@@ -66,7 +63,8 @@ def user_settings(request):
         current_user = request.user
         profile = UserProfile.objects.get(user_id = current_user.pk)
         context = {'form': form,
-                   'profile': profile,}
+                   'profile': profile,
+                   'page': 'USER SETTINGS'}
         return render(request, 'user_settings.html', context)
 
 @login_required(login_url='/login') # Check login
@@ -138,7 +136,8 @@ def user_comments(request):
     profile = UserProfile.objects.get(user_id = current_user.pk)
     comments = Comment.objects.filter(user_id = current_user.id)
     context = {'comments': comments,
-               'profile': profile,}
+               'profile': profile,
+               'page': 'USER COMMENTS',}
     return render(request, 'user_comments.html', context)
 
 @login_required(login_url='/login') # Check login
@@ -147,3 +146,22 @@ def user_deletecomment(request,id):
     Comment.objects.filter(id=id, user_id=current_user.id).delete()
     messages.success(request, 'Comment deleted..')
     return HttpResponseRedirect('/user/comments')
+
+@login_required(login_url='/login') # Check login
+def user_posts_update(request, id):
+    post = get_object_or_404(Post, pk=id, user=request.user)
+    current_user = request.user
+    profile = UserProfile.objects.get(user_id=current_user.pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            # İşlem başarılı olduğunda başka bir sayfaya yönlendirme yapabilirsiniz.
+            return redirect('user_post')
+    else:
+        form = PostForm(instance=post)
+    context = {'profile': profile,
+               'form': form, 
+               'post': post,
+               'page': 'POST UPDATE',}
+    return render(request, 'user_posts_update.html', context)

@@ -1,6 +1,10 @@
-<div class="modal fade bd-example-modal-lg" id="containereditprofile" tabindex="-1" role="dialog" aria-labelledby="containerdetailLabel" aria-hidden="true">
+{% load static %}
+
+{% block body %}
+
+<div class="modal fade bd-example-modal-lg mt-2" id="containereditprofile" tabindex="-1" role="dialog" aria-labelledby="containerdetailLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
+      <div class="modal-content rounded">
         <div class="modal-header">
           <h5 class="modal-title" id="containerdetailLabel">PROFILE EDIT</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -12,7 +16,7 @@
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class="form-group">
-                        <button class="btn btn-outline-success rounded py-2" type="submit">Save changes</button>
+                        <button class="btn btn-outline-success rounded py-2" type="submit">Save Changes</button>
                     </div>
                 </form>
             </div>
@@ -22,3 +26,5 @@
       </div>
     </div>
 </div>
+
+{% endblock  %}
