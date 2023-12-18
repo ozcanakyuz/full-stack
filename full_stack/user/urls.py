@@ -5,7 +5,9 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("userprofile", views.index, name="user_profile"),
+    # path("userprofileedit", views.user_profile_edit, name="user_profile_edit"),
     path('settings/', views.user_settings, name='user_settings'),
+    path('password/', views.user_password, name='user_password'),
     path('post', views.user_post, name='user_post'),
     path('newpost', views.user_newpost, name='user_newpost'),
     path('addpost', views.user_addpost, name='user_addpost'),

@@ -41,3 +41,9 @@ class ProfileUpdateForm(forms.ModelForm):
             'country': TextInput(attrs={'class': 'input', 'placeholder': 'country'}),
             'image': FileInput(attrs={'class': 'input', 'placeholder': 'image', }),
         }
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['user', 'image']

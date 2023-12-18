@@ -13,6 +13,39 @@
 </header>
 <!-- Header -->
 
+<table class="table table-bordered text-center rounded shadow-lg mt-5 w-75" style="margin: auto;">
+    <thead class="bg-secondary text-dark">
+        <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>E Mail</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Process</th>
+        </tr>
+    </thead>
+    <tbody class="align-middle">
+        <tr>
+            <td class="align-middle"><img src="{{  profile.image.url }}" alt="" style="width: 100px;"></td>
+            <td class="align-middle">{{ profile.user.get_full_name }}</td>
+            <td class="align-middle">{{ profile.user.email }}</td>
+            <td class="align-middle">{{ profile.phone }}</td>
+            <td class="align-middle">{{ profile.address }}</td>
+            <td class="align-middle">{{ profile.city }}</td>
+            <td class="align-middle">
+                <a class="btn btn-primary rounded px-3 py-2 rounded text-light align-items-center hidden-arrow" id="navbarDropdownEditProfile" type="button" data-toggle="modal" data-target="#containereditprofile">EDIT PROFILE</a>
+                <hr>
+                <a class="btn btn-danger rounded rounded align-items-center hidden-arrow" href="/user/settings">Change Password</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
+<div class="text-center my-4">
+
+  </div>
+
+  {% include 'user_settings_modal.html' %}
 
 {% endblock %}

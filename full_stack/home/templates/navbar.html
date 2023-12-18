@@ -55,7 +55,11 @@
             {%  if user.id is not None %}
             <div class="dropdown">
                 <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" onclick="myFunction()" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                    {% if profile.image %}
                     <img src="{{ profile.image.url }}" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy" />
+                    {% else %}
+                    <img src="" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy" alt="NO PHOTO!" />
+                    {% endif %}
                 </a>
                 <div id="myDropdown" class="dropdown-content mt-3 rounded">
                     <a href="/user">Profile</a>

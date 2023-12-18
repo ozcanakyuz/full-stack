@@ -1,39 +1,89 @@
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-from home.models import Comment, Post, PostForm, UserProfile
+from home.models import Comment, Post, PostForm, UserProfile, UserProfileForm
 from user.forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required(login_url='/login') # Check login
 def index(request):
-        current_user = request.user
-        profile = UserProfile.objects.get(user_id = current_user.pk)
+    profile = UserProfile.objects.get_or_create(user=request.user)[0]
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        formPassword = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+        elif formPassword.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return HttpResponseRedirect('/user')
+    else:
+        form = UserProfileForm(instance=profile)
+        formPassword = PasswordChangeForm(request.user)
         context = {'profile': profile,
+                   'form': form,
+                   'formPassword': formPassword,
                    'page': 'USER PROFILE',}
         return render(request, 'user_profile.html', context)
+
+
+
+
+# @login_required
+# def user_settings(request):
+#     profile = UserProfile.objects.get_or_create(user=request.user)[0]
+
+#     if request.method == 'POST':
+#         form = UserProfileForm(request.POST, request.FILES, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('user_profile')
+#     else:
+#         form = UserProfileForm(instance=profile)
+
+#     return render(request, 'user_settings.html', {'form': form})
+
 
 @login_required(login_url='/login') # Check login
 def user_settings(request):
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user) # request.user is user  data
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, 'Your account has been updated!')
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
             return HttpResponseRedirect('/user')
+        else:
+            messages.error(request, 'Please correct the error below.<br>'+ str(form.errors))
+            return HttpResponseRedirect('/user/settings')
     else:
-        user_form = UserUpdateForm(instance=request.user)
-        profile_form = ProfileUpdateForm(instance=request.user.userprofile)
+        form = PasswordChangeForm(request.user)
         current_user = request.user
         profile = UserProfile.objects.get(user_id = current_user.pk)
-        context = {'user_form': user_form,
-                   'profile_form': profile_form,
-                   'page':'SETTINGS',
+        context = {'form': form,
                    'profile': profile,}
         return render(request, 'user_settings.html', context)
+
+@login_required(login_url='/login') # Check login
+def user_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return HttpResponseRedirect('/user')
+        else:
+            messages.error(request, 'Please correct the error below.<br>'+ str(form.errors))
+            return HttpResponseRedirect('/user/password')
+    else:
+        form = PasswordChangeForm(request.user)
+        return render(request, 'user_password.html', {'form': form})
 
 @login_required(login_url='/login')
 def user_post(request):
@@ -97,4 +147,3 @@ def user_deletecomment(request,id):
     Comment.objects.filter(id=id, user_id=current_user.id).delete()
     messages.success(request, 'Comment deleted..')
     return HttpResponseRedirect('/user/comments')
-        

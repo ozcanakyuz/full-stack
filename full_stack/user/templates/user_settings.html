@@ -7,6 +7,46 @@
 <header>
     <div class="header m-auto">
         <div class="container" style="position: relative;">
+            <h2 class="text-light px-2 m-auto border-bottom" id="navbar-text">USER PROFILE EDIT</h2>
+        </div>
+    </div>
+</header>
+<!-- Header -->
+
+<div class="setting mt-4 d-flex justify-content-center text-center">
+    <form method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-lg">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+                <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        <div class="form-group">
+            <button class="btn btn-outline-success rounded py-2" type="submit">Save changes</button>
+        </div>
+      </form>
+</div>
+
+
+{% endblock %}
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<!-- Header -->
+<header>
+    <div class="header m-auto">
+        <div class="container" style="position: relative;">
             <h2 class="text-light px-2 m-auto border-bottom" id="navbar-text">USER SETTINGS</h2>
         </div>
     </div>
@@ -33,4 +73,6 @@
 </div>
 <!-- Update End -->
 
-{% endblock %}
+{% endblock %} {% endcomment %}
+
+
