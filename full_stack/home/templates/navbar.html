@@ -28,11 +28,16 @@
         <!-- Collapsible wrapper -->
 
         <!-- Right elements -->
-        <div class="search-box">
-            <button class="btn btnnavbar btn-search"><i class="fas fa-search"></i></button>
-            <input type="text" class="input-search" placeholder="Type to Search...">
-        </div>
-        
+    {% comment %} ! SEARCH KISMI {% endcomment %}
+        <form action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
+            <div class="search-box">
+                <button class="btn btnnavbar btn-search" type="button"><i class="fas fa-search"></i></button>
+                
+                <input type="text" name="query" class="input-search" placeholder="Type to Search...">
+            </div>
+        </form>
+
         <div class="d-flex align-items-center frame-right border-bottom">
             <!-- Icon -->
             <a class="text-reset me-3 btn btnnavbar" href="#">

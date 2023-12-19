@@ -6,7 +6,7 @@
 <div class="containerlog m-auto modal fade" id="containerlog" style="max-height: 520px;">
     {% comment %} ! SIGN UP {% endcomment %}
 	<div class="form-containerlog sign-up-containerlog">
-		<form action="{% url 'index' %}" method="POST">
+		<form action="/signup" method="POST">
             {% csrf_token %}
 			<h1>Create Account</h1>
 			<div class="social-containerlog">
@@ -18,13 +18,16 @@
 			<input type="text" name="username" placeholder="Username"/>
 			<input type="email" name="email" placeholder="Email"/>
 			<input type="password" name="password" placeholder="Password"/>
-			<button type="submit" name="signup_submit">Sign Up</button>
+			<button type="submit">Sign Up</button>
 		</form>
 	</div>
-
-	{% comment %} ! LOG IN  {% endcomment %}
 	<div class="form-containerlog sign-in-containerlog">
-		<form action"{% url 'index' %}" method="POST">
+	{% comment %} ! LOG IN  {% endcomment %}
+		{% comment %} <button type="button" class="btn-close position-absolute m-2 w-25" aria-label="Close">
+			<i class="fa-solid fa-xmarkx"></i>
+		</button> {% endcomment %}
+
+		<form action"/login" method="POST">
             {% csrf_token %}
 			<h1>Sign in</h1>
 			<div class="social-containerlog">
@@ -35,9 +38,10 @@
 			<span>or use your account</span>
 			<input type="text" name="username" placeholder="Username"/>
 			<input type="password" name="password" placeholder="Password"/>
-			<a href="">Forgot your password?</a>
-			<button type="submit" name="login_submit">Sign In</button>
+			<a href="#">Forgot your password?</a>
+			<button type="submit">Sign In</button>
 		</form>
+		
 	</div>
 
 	<div class="overlay-containerlog">

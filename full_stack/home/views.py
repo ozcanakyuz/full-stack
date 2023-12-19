@@ -4,34 +4,52 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render
 
-
-from home.forms import CommentForm, LoginForm, SignUpForm
+from home.forms import CommentForm, LoginForm, SearchForm, SignUpForm
 from home.models import Comment, Post, ReplyComment, ReplyCommentForm, UserProfile
 
 #! LOG IN & SIGN-UP
 def index(request):
     if request.method == 'POST':  #check post
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
+        login_form = LoginForm(request.POST)
+        signup_form = SignUpForm(request.POST)
+        if 'login_submit' in request.POST:
+            if login_form.is_valid():
+                username = login_form.cleaned_data['username']
+                password = login_form.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, "You have successfully logged in {}".format(user.username))
+                    return HttpResponseRedirect('/')
+                else:
+                    messages.warning(request, "Girilen Bilgiler Hatali Tekrar Deneyiniz {}".format(username))
+                    return HttpResponseRedirect('/')
+            
+        elif 'signup_submit' in request.POST:
+            if signup_form.is_valid():
+                signup_form.save()
+                username = signup_form.cleaned_data.get('username')
+                password = signup_form.cleaned_data.get('password')
+                user = authenticate(username=username, password=password)
                 login(request, user)
-                messages.success(request, "You have successfully logged in {}".format(user.username))
+                current_user = request.user
+                data = UserProfile()
+                data.user_id = current_user.id
+                data.image="images/users/user.png"
+                data.save()
+                messages.success(request, 'Your account has been created!')
                 return HttpResponseRedirect('/')
             else:
-                messages.warning(request, "Girilen Bilgiler Hatali Tekrar Deneyiniz {}".format(username))
+                messages.warning(request, signup_form.errors)
                 return HttpResponseRedirect('/')
     # elif request.method == "POST":
-    #     form = SignUpForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         username = form.cleaned_data.get('username')
-    #         password = form.cleaned_data.get('password')
+    #     signup_form = SignUpForm(request.POST)
+    #     if signup_form.is_valid():
+    #         signup_form.save()
+    #         username = signup_form.cleaned_data.get('username')
+    #         password = signup_form.cleaned_data.get('password')
     #         user = authenticate(username=username, password=password)
     #         login(request, user)
-    #         #?Create data in profile table for user
     #         current_user = request.user
     #         data = UserProfile()
     #         data.user_id = current_user.id
@@ -39,23 +57,30 @@ def index(request):
     #         data.save()
     #         messages.success(request, 'Your account has been created!')
     #         return HttpResponseRedirect('/')
-        else:
-            messages.warning(request, form.errors)
-            return HttpResponseRedirect('/')
+    #     else:
+    #         messages.warning(request, login_form.errors)
+    #         return HttpResponseRedirect('/')
+    else:
+        login_form = LoginForm()
+        signup_form = SignUpForm()
     if request.user.is_authenticated:
         current_user = request.user
         profile = UserProfile.objects.get(user_id=current_user.pk)
         posts = Post.objects.filter(status='True')
-        formlog = LoginForm
-        context = {'formlog': formlog,
-                   'profile': profile,
-                   'posts': posts,
-                   'page': 'Home',} 
+        login_form = LoginForm
+        signup_form = SignUpForm
+        context = {'login_form': login_form,
+                   'signup_form': signup_form,
+                    'profile': profile,
+                    'posts': posts,
+                    'page': 'Home',} 
         return render(request, 'index.html', context)
     else:
         posts = Post.objects.filter(status='True')
-        formlog = LoginForm
-        context = {'formlog': formlog,
+        login_form = LoginForm
+        signup_form = SignUpForm
+        context = {'login_form': login_form,
+                   'signup_form': signup_form,
                     'posts': posts,
                     'page': 'Home',} 
         return render(request, 'index.html', context)
@@ -170,3 +195,103 @@ def replycomment(request, id):
         else:
             messages.warning(request, "Lütfen mesaj kutucuklarini doldurunuz!!") 
     return HttpResponseRedirect(url)
+
+
+def search(request):
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+        login_form = LoginForm(request.POST)
+        signup_form = SignUpForm(request.POST)
+        if 'login_submit' in request.POST:
+            if login_form.is_valid():
+                username = login_form.cleaned_data['username']
+                password = login_form.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, "You have successfully logged in {}".format(user.username))
+                    return HttpResponseRedirect('/')
+                else:
+                    messages.warning(request, "Girilen Bilgiler Hatali Tekrar Deneyiniz {}".format(username))
+                    return HttpResponseRedirect('/')
+        elif 'signup_submit' in request.POST:
+            if signup_form.is_valid():
+                signup_form.save()
+                username = signup_form.cleaned_data.get('username')
+                password = signup_form.cleaned_data.get('password')
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                current_user = request.user
+                data = UserProfile()
+                data.user_id = current_user.id
+                data.image="images/users/user.png"
+                data.save()
+                messages.success(request, 'Your account has been created!')
+                return HttpResponseRedirect('/')
+            else:
+                messages.warning(request, signup_form.errors)
+                return HttpResponseRedirect('/')
+        elif search_form.is_valid():
+            if request.user.is_authenticated:
+                current_user = request.user
+                profile = UserProfile.objects.get(user_id=current_user.pk)
+                query = search_form.cleaned_data['query']
+                posts = Post.objects.filter(content__icontains=query)
+                context = {'posts': posts,
+                        'query': query,
+                        'profile': profile,
+                        'page': 'SEARCH',}
+                return render(request, 'search.html', context)
+            else:
+                query = search_form.cleaned_data['query']
+                posts = Post.objects.filter(content__icontains=query)
+                context = {'posts': posts,
+                        'query': query,
+                        'page': 'SEARCH',}
+                return render(request, 'search.html', context)
+    else:
+        login_form = LoginForm()
+        signup_form = SignUpForm()
+    if request.user.is_authenticated:
+        current_user = request.user
+        profile = UserProfile.objects.get(user_id=current_user.pk)
+        posts = Post.objects.filter(status='True')
+        login_form = LoginForm
+        signup_form = SignUpForm
+        context = {'login_form': login_form,
+                   'signup_form': signup_form,
+                    'profile': profile,
+                    'posts': posts,
+                    'page': 'Home',} 
+        return render(request, 'index.html', context)
+    else:
+        posts = Post.objects.filter(status='True')
+        login_form = LoginForm
+        signup_form = SignUpForm
+        context = {'login_form': login_form,
+                   'signup_form': signup_form,
+                    'posts': posts,
+                    'page': 'Home',} 
+        return render(request, 'index.html', context)
+
+        
+
+    # elif request.method == "POST":
+    #     signup_form = SignUpForm(request.POST)
+    #     if signup_form.is_valid():
+    #         signup_form.save()
+    #         username = signup_form.cleaned_data.get('username')
+    #         password = signup_form.cleaned_data.get('password')
+    #         user = authenticate(username=username, password=password)
+    #         login(request, user)
+    #         current_user = request.user
+    #         data = UserProfile()
+    #         data.user_id = current_user.id
+    #         data.image="images/users/user.png"
+    #         data.save()
+    #         messages.success(request, 'Your account has been created!')
+    #         return HttpResponseRedirect('/')
+    #     else:
+    #         messages.warning(request, login_form.errors)
+    #         return HttpResponseRedirect('/')
+

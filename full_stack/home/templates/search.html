@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<!-- Header -->
+<header>
+    <div class="header m-auto">
+        <div class="container" style="position: relative;">
+            <h2 class="text-light px-2 m-auto border-bottom" id="navbar-text">SEARCH - {{ query }}</h2>
+        </div>
+    </div>
+</header>
+<!-- Header -->
+
+<!-- SEARCH -->
+
+<div class="card-group mt-3 mx-5" style="gap: 1rem;">
+    {% for post in posts %}
+        <div class="card align-items-center rounded my-4">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top py-4 w-75" alt="...">
+            {% else %}
+            <img src="{% static 'img/cat-6.jpg' %}" class="card-img-top py-4 w-75" alt="...">
+            {% endif %}
+            <div class="card-body w-100">
+            <h5 class="card-title">{{ post.user.get_full_name }}</h5>
+            {% comment %} <p class="card-text">{{ post.title }}</p> {% endcomment %}
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
+            </div>
+            <div class="text-right w-100 p-2">
+                <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- SEARCH -->
+
+{% endblock  %}
