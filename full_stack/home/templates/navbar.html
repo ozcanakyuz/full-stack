@@ -1,4 +1,5 @@
 {% load static %}
+{% load active_link_tags %}
 
 {% block body %}
 <!-- Navbar -->
@@ -40,10 +41,19 @@
 
         <div class="d-flex align-items-center frame-right border-bottom">
             <!-- Icon -->
-            <a class="text-reset me-3 btn btnnavbar" href="#">
-                <i class="fa-solid fa-info" style="color:#ee4056;"></i>
-            </a>
+        {% with request.resolver_match.url_name as url_name %}
+            {% comment %} {% if url.name == 'index' %} {% endcomment %}
+                <a class="text-reset me-3 btn btnnavbar" id="information" href="#" type="button" 
+                {% if url_name == 'index' %}
+                    onclick="homeInfo()"
+                {% elif url_name == 'post_detail' %}
+                    onclick="detailInfo()"
+                {% else %}
 
+                {% endif %}>
+                    <i class="fa-solid fa-info" style="color:#ee4056;"></i>
+                </a>
+        {% endwith %}
             <!-- Notifications -->
             <div class="dropdownnotif">
                 <a class="text-reset me-3 dropbtnnotif hidden-arrow btn btnnavbar" href="#" onclick="myFunctionNotif()" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
@@ -75,7 +85,7 @@
                 </div>
             </div>
             {% else %}
-            <div class="dropdown">
+            <div class="dropdown" id="login-signup">
                 <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerlog" onclick="containerLogClose()">
                     <i class="fa-regular fa-user text-dark"></i>
                 </a>

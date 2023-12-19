@@ -108,3 +108,46 @@ signInButton.addEventListener('click', () => {
 //         }
 //     })
 // }
+
+
+// ! DRIVER JS
+
+const driver = window.driver.js.driver;
+
+function homeInfo() {
+    const driverObj = driver({
+        showProgress: true,
+        steps: [
+          { element: '#information', popover: {title: "Info",description: "Click here to learn about the parts of the website that you do not understand." } },
+          { element: '#login-signup', popover: { title: 'Log In & Sign Up', description: 'Click for user login and user registration.' } },
+          { element: '.dropdownnotif', popover: { title: 'Notifications', description: 'Your notifications appear here.' } },
+          { element: '.search-box', popover: { title: 'Search', description: 'Type to search.' } },
+          { element: '.card', popover: { title: 'Card', description: 'Posts appear here.' } },
+          { element: '.card-body', popover: { title: 'Card Body', description: 'Card informations appears here.' } },
+          { element: '.card-img-top', popover: { title: 'Card Image', description: 'Card image appear here.' } },
+          { element: '#card-user', popover: { title: 'Card User Name', description: 'Name and surname of the user who created the card.' } },
+          { element: '#card-content', popover: { title: 'Card Content', description: 'Card content appear here.' } },
+          { element: '#card-create', popover: { title: 'Card Creation Date', description: 'Card creation date appear here.' } },
+          { element: '#card-detail', popover: { title: 'Card Detail', description: 'Click to comment on the card or get more information.' } },
+        ]
+      });
+
+    driverObj.drive();
+}
+
+function detailInfo() {
+    const driverObj = driver({
+        showProgress: true,
+        steps: [
+          { element: '#containerdetail', popover: { title: 'Card', description: 'Posts appear here.' } },
+          { element: '.card-body', popover: { title: 'Card Body', description: 'Card informations appears here.' } },
+          { element: '.card-img-top', popover: { title: 'Card Image', description: 'Card image appear here.' } },
+          { element: '#card-user', popover: { title: 'Card User Name', description: 'Name and surname of the user who created the card.' } },
+          { element: '#card-content', popover: { title: 'Card Content', description: 'Card content appear here.' } },
+          { element: '#card-create', popover: { title: 'Card Creation Date', description: 'Card creation date appear here.' } },
+          { element: '#card-detail-comments', popover: { title: 'Card Comments', description: 'Card comments appears here.' } },
+        ]
+      });
+
+    driverObj.drive();
+}
