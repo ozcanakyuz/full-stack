@@ -97,8 +97,6 @@ class Images(models.Model):
         return None
     image_tag.short_description = 'Image Preview'
 
-
-
 class Comment(models.Model):
     STATUS = (('New', 'New'),('True', 'True'),('False', 'False'))
     post=models.ForeignKey(Post,on_delete=models.CASCADE)

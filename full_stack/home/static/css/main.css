@@ -411,7 +411,7 @@ div > img {
 	z-index: 2;
 }
 
-.containerlog .right-panel-active .sign-in-containerlog {
+.containerlog.right-panel-active .sign-in-containerlog {
 	transform: translateX(100%);
 }
 
@@ -522,9 +522,6 @@ div > img {
 	height: 40px;
 	width: 40px;
 }
-
-
-
 
 
 /*! Responsive */

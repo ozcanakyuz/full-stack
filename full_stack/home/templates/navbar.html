@@ -48,6 +48,8 @@
                     onclick="homeInfo()"
                 {% elif url_name == 'post_detail' %}
                     onclick="detailInfo()"
+                {% elif url_name == 'search' %}
+                    onclick="searchInfo()"
                 {% else %}
 
                 {% endif %}>
@@ -68,7 +70,7 @@
             </div>
             <!-- Avatar -->
             {%  if user.id is not None %}
-            <div class="dropdown">
+            <div class="dropdown" id="login-signup">
                 <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" onclick="myFunction()" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                     {% if profile.image %}
                     <img src="{{ profile.image.url }}" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy" />

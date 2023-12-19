@@ -6,7 +6,7 @@
 <div class="containerlog m-auto modal fade" id="containerlog" style="max-height: 520px;">
     {% comment %} ! SIGN UP {% endcomment %}
 	<div class="form-containerlog sign-up-containerlog">
-		<form action="{% url 'index' %}" method="POST">
+		<form action="" method="POST">
             {% csrf_token %}
 			<h1>Create Account</h1>
 			<div class="social-containerlog">
@@ -15,9 +15,12 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your email for registration</span>
+			{% comment %}! <input type="text" name="user" placeholder="First Name - Last Name"/> {% endcomment %}
 			<input type="text" name="username" placeholder="Username"/>
 			<input type="email" name="email" placeholder="Email"/>
 			<input type="password" name="password" placeholder="Password"/>
+			<input type="password" name="password1" placeholder="Password Retry"/>
+			<input type="password" name="password2" placeholder="Password Retry II"/>
 			<button type="submit" name="signup_submit">Sign Up</button>
 		</form>
 	</div>
@@ -35,7 +38,7 @@
 			<span>or use your account</span>
 			<input type="text" name="username" placeholder="Username"/>
 			<input type="password" name="password" placeholder="Password"/>
-			<a href="">Forgot your password?</a>
+			<a href="" class="my-2">Forgot your password?</a>
 			<button type="submit" name="login_submit">Sign In</button>
 		</form>
 	</div>

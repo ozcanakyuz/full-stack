@@ -10,11 +10,11 @@ class LoginForm(forms.Form):
 
 class SignUpForm(UserCreationForm):
     username = forms.CharField(max_length=30)
-    email = forms.EmailField(max_length=200)
+    email = forms.EmailField(max_length=30)
 
     class Meta:
         model = User
-        fields = ('username', 'email','password', )
+        fields = ('username','email','password')
 
 class CommentForm(forms.ModelForm):
     class Meta:

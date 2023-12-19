@@ -123,8 +123,8 @@ function homeInfo() {
           { element: '.dropdownnotif', popover: { title: 'Notifications', description: 'Your notifications appear here.' } },
           { element: '.search-box', popover: { title: 'Search', description: 'Type to search.' } },
           { element: '.card', popover: { title: 'Card', description: 'Posts appear here.' } },
-          { element: '.card-body', popover: { title: 'Card Body', description: 'Card informations appears here.' } },
           { element: '.card-img-top', popover: { title: 'Card Image', description: 'Card image appear here.' } },
+          { element: '.card-body', popover: { title: 'Card Body', description: 'Card informations appears here.' } },
           { element: '#card-user', popover: { title: 'Card User Name', description: 'Name and surname of the user who created the card.' } },
           { element: '#card-content', popover: { title: 'Card Content', description: 'Card content appear here.' } },
           { element: '#card-create', popover: { title: 'Card Creation Date', description: 'Card creation date appear here.' } },
@@ -140,12 +140,30 @@ function detailInfo() {
         showProgress: true,
         steps: [
           { element: '#containerdetail', popover: { title: 'Card', description: 'Posts appear here.' } },
-          { element: '.card-body', popover: { title: 'Card Body', description: 'Card informations appears here.' } },
           { element: '.card-img-top', popover: { title: 'Card Image', description: 'Card image appear here.' } },
+          { element: '.card-body', popover: { title: 'Card Body', description: 'Card informations appears here.' } },
           { element: '#card-user', popover: { title: 'Card User Name', description: 'Name and surname of the user who created the card.' } },
           { element: '#card-content', popover: { title: 'Card Content', description: 'Card content appear here.' } },
           { element: '#card-create', popover: { title: 'Card Creation Date', description: 'Card creation date appear here.' } },
           { element: '#card-detail-comments', popover: { title: 'Card Comments', description: 'Card comments appears here.' } },
+        ]
+      });
+
+    driverObj.drive();
+}
+
+function searchInfo() {
+    const driverObj = driver({
+        showProgress: true,
+        steps: [
+          { element: '#carddetail', popover: { title: 'Card', description: 'Posts appear here.' } },
+          { element: '.card-img-top', popover: { title: 'Card Image', description: 'Card image appear here.' } },
+          { element: '.card-body', popover: { title: 'Card Body', description: 'Card informations appears here.' } },
+          { element: '#card-user', popover: { title: 'Card User Name', description: 'Name and surname of the user who created the card.' } },
+          { element: '#card-content', popover: { title: 'Card Content', description: 'Card content appear here.' } },
+          { element: '#card-create', popover: { title: 'Card Creation Date', description: 'Card creation date appear here.' } },
+          { element: '#card-detail', popover: { title: 'Card Detail', description: 'Click to comment on the card or get more information.' } },
+
         ]
       });
 
