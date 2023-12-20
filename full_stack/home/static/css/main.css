@@ -420,6 +420,7 @@ div > img {
 	width: 50%;
 	opacity: 0;
 	z-index: 1;
+  font-size: small;
 }
 
 .containerlog.right-panel-active .sign-up-containerlog {
@@ -509,7 +510,7 @@ div > img {
 }
 
 .social-containerlog {
-	margin: 20px 0;
+	margin: 10px 0;
 }
 
 .social-containerlog a {

@@ -3,7 +3,7 @@
 {% block body %}
 
 {% comment %}!-- Log In Start --> {% endcomment %}
-<div class="containerlog m-auto modal fade" id="containerlog" style="max-height: 520px;">
+<div class="containerlog modal fade" id="containerlog" style="max-height: 530px;">
     {% comment %} ! SIGN UP {% endcomment %}
 	<div class="form-containerlog sign-up-containerlog">
 		<form action="" method="POST">
@@ -16,14 +16,13 @@
 			</div>
 			<span>or use your email for registration</span>
 			{% comment %}! <input type="text" name="user" placeholder="First Name - Last Name"/> {% endcomment %}
-			{% comment %} <input type="text" name="username" placeholder="Username"/>
+			<input type="text" name="username" placeholder="Username"/>
 			<input type="email" name="email" placeholder="Email"/>
-			<input type="password" name="password1" placeholder="Password"/> {% endcomment %}
-			{% comment %} <input type="password" name="password1" placeholder="Password Retry"/> {% endcomment %}
-			{% comment %} <input type="password" name="password2" placeholder="Password Retry II"/>
-			<button type="submit" name="signup_submit">Sign Up</button> {% endcomment %}
-			{% comment %} {{ signup_form.as_p }}	 {% endcomment %}
-			{{ signup_form|crispy }}
+			<input type="password" name="password" placeholder="Password"/>
+			<input type="password" name="password1" placeholder="Password Retry"/>
+			{% comment %} <input type="password" name="password2" placeholder="Password Retry II"/> {% endcomment %}
+			 {% comment %} {{ signup_form.as_p }}  {% endcomment %}
+			<button type="submit" name="signup_submit">Sign Up</button>
 		</form>
 	</div>
 
