@@ -16,12 +16,14 @@
 			</div>
 			<span>or use your email for registration</span>
 			{% comment %}! <input type="text" name="user" placeholder="First Name - Last Name"/> {% endcomment %}
-			<input type="text" name="username" placeholder="Username"/>
+			{% comment %} <input type="text" name="username" placeholder="Username"/>
 			<input type="email" name="email" placeholder="Email"/>
-			<input type="password" name="password" placeholder="Password"/>
-			<input type="password" name="password1" placeholder="Password Retry"/>
-			<input type="password" name="password2" placeholder="Password Retry II"/>
-			<button type="submit" name="signup_submit">Sign Up</button>
+			<input type="password" name="password1" placeholder="Password"/> {% endcomment %}
+			{% comment %} <input type="password" name="password1" placeholder="Password Retry"/> {% endcomment %}
+			{% comment %} <input type="password" name="password2" placeholder="Password Retry II"/>
+			<button type="submit" name="signup_submit">Sign Up</button> {% endcomment %}
+			{% comment %} {{ signup_form.as_p }}	 {% endcomment %}
+			{{ signup_form|crispy }}
 		</form>
 	</div>
 
