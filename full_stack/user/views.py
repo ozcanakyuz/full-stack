@@ -7,14 +7,19 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from home.models import Comment, Post, PostForm, ReplyComment, UserProfile, UserProfileForm
 
+from user.forms import UserUpdateForm, ProfileUpdateForm
+
 @login_required(login_url='/login') # Check login
 def index(request):
     profile = UserProfile.objects.get_or_create(user=request.user)[0]
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        user_form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
         # formPassword = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            form.save()
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your account has been updated!')
             return redirect('user_profile')
         # elif formPassword.is_valid():
         #     user = form.save()
@@ -22,10 +27,12 @@ def index(request):
         #     messages.success(request, 'Your password was successfully updated!')
         #     return HttpResponseRedirect('/user')
     else:
-        form = UserProfileForm(instance=profile)
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.userprofile)
         # formPassword = PasswordChangeForm(request.user)
         context = {'profile': profile,
-                   'form': form,
+                   'user_form': user_form,
+                   'profile_form': profile_form,
                 #    'formPassword': formPassword,
                    'page': 'USER PROFILE',}
         return render(request, 'user_profile.html', context)
