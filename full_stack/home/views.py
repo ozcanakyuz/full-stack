@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from home.forms import CommentForm, LoginForm, SearchForm, SignUpForm
 from home.models import Comment, Post, ReplyComment, ReplyCommentForm, UserProfile
 
@@ -37,7 +39,7 @@ def index(request):
                 data.image="images/users/user.png"
                 data.save()
                 messages.success(request, 'Your account has been created!')
-                return HttpResponseRedirect('/user')
+                return HttpResponseRedirect('/')
             else:
                 messages.warning(request, signup_form.errors)
                 return HttpResponseRedirect('/')
@@ -45,6 +47,17 @@ def index(request):
             login_form = LoginForm()
             signup_form = SignUpForm()
     if request.user.is_authenticated:
+        posts = Post.objects.filter(status=True)
+        paginator = Paginator(posts, 8)
+        page_number = request.GET.get('page')
+        
+        try:
+            page_obj = paginator.get_page(page_number)
+        except PageNotAnInteger:
+            page_obj = paginator.page(1)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+
         current_user = request.user
         profile = UserProfile.objects.get(user_id=current_user.pk)
         posts = Post.objects.filter(status='True')
@@ -53,17 +66,27 @@ def index(request):
         context = {'login_form': login_form,
                    'signup_form': signup_form,
                     'profile': profile,
-                    'posts': posts,
+                    'page_obj': page_obj,
                     'page': 'Home',} 
         return render(request, 'index.html', context)
     else:
-        posts = Post.objects.filter(status='True')
+        posts = Post.objects.filter(status=True)
+        paginator = Paginator(posts, 8)
+        page_number = request.GET.get('page')
+        
+        try:
+            page_obj = paginator.get_page(page_number)
+        except PageNotAnInteger:
+            page_obj = paginator.page(1)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+
         login_form = LoginForm()
         signup_form = SignUpForm()
         context = {'login_form': login_form,
                    'signup_form': signup_form,
-                    'posts': posts,
-                    'page': 'Home',} 
+                   'page_obj': page_obj,
+                   'page': 'Home',} 
         return render(request, 'index.html', context)
 
 

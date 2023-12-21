@@ -5,7 +5,7 @@
 
 
 <div class="card-group mt-3 mx-5" style="gap: 1rem;">
-  {% for post in posts %}
+  {% for post in page_obj %}
     <div class="card align-items-center rounded my-4">
       {% if post.image %}
       <img src="{{ post.image.url }}" class="card-img-top py-4 w-75" alt="...">
@@ -25,6 +25,28 @@
       </div>
     </div>
   {% endfor %}
+</div>
+
+<div class="pagination justify-content-center">
+  <span class="step-links">
+      {% if page_obj.has_previous %}
+          {% comment %} <a class="btn btnnavbar text-dark d-blo" style="display: inline-block;" href="?page={{ page_obj.previous_page_number }}">&laquo;</a> {% endcomment %}
+
+          <a class="btn btnnavbar text-warning" style="display: inline-flex; width: 35px !important; height: 35px !important;" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-double-left"></i>
+          </a>
+      {% endif %}
+
+      <span class="current mx-2">
+          Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+          {% comment %} <a class="btn btnnavbar text-dark" style="display: inline-flex;" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a> {% endcomment %}
+
+          <a class="btn btnnavbar text-warning" style="display: inline-flex; width: 35px !important; height: 35px !important;" href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i>
+          </a>
+      {% endif %}
+  </span>
 </div>
 
 
