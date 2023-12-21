@@ -103,13 +103,13 @@
 
 {% if messages and user.id is not None %}
     {% for message in messages %}
-        <div class="alert alert-{{message.tags}} rounded shadow-lg m-auto float-right" role="alert" style="position:unset; z-index: 1;">
+        <div class="alert alert-{{message.tags}} rounded shadow-lg m-auto float-right" role="alert" style="position:unset; z-index: 1; color: black;">
             {{ message }}
         </div>
     {% endfor %}
     {% else %}
     {% for message in messages %}
-    <div class="alert alert-{{message.tags}} rounded shadow-lg w-25" role="alert" style="position:absolute; z-index: 1; opacity: .8;">
+    <div class="alert alert-{{message.tags}} rounded shadow-lg w-25" role="alert" style="position:absolute; z-index: 1; color: black; opacity: .8;">
         {{ message }}
     </div>
     {% endfor %}
