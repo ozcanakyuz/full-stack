@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from home.models import Comment, Post, PostForm, ReplyComment, UserProfile, UserProfileForm
 
 from user.forms import UserUpdateForm, ProfileUpdateForm
@@ -98,8 +100,20 @@ def user_password(request):
 def user_post(request):
     current_user = request.user
     posts = Post.objects.filter(user_id = current_user.id)
+    paginator = Paginator(posts, 8)
+    page_number = request.GET.get('page')
+    
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+
+    
     profile = UserProfile.objects.get(user_id = current_user.pk)
     context = {'posts': posts,
+               'page_obj': page_obj,
                'profile': profile,
                'page': 'USER POSTS',}
     return render(request, 'user_posts.html', context)

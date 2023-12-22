@@ -19,7 +19,7 @@
 </div>
 
 <div class="card-group mx-5" style="gap: 1rem; position: static !important;">
-    {% for post in posts %}
+    {% for post in page_obj %}
       <div class="card align-items-center rounded mb-3">
         {% if post.image %}
         <img src="{{ post.image.url }}" class="card-img-top py-4 w-75" alt="...">
@@ -45,13 +45,34 @@
         </div>
         <div class="text-center w-100 p-2">
           <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn mt-2 btn-outline-danger rounded">REMOVE</button></a>
-          {% comment %} <a class="btn mt-2 btn-outline-success rounded align-items-center hidden-arrow mx-2" href="/post_detail/{{post.id}}" value="{{post.id}}" type="button" data-toggle="modal" data-target="#postsupdate">UPDATE</a> {% endcomment %}
           <a class="btn mt-2 btn-outline-success rounded align-items-center hidden-arrow mx-2" href="update/{{post.id}}">UPDATE</a>
           <a class="btn mt-2 btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL</a>
         </div>
       </div>
     {% endfor %}
 </div>
+
+<div class="pagination justify-content-center mt-5">
+  <span class="step-links">
+      {% if page_obj.has_previous %}
+          <a class="btn btnnavbar text-warning" style="display: inline-flex; width: 35px !important; height: 35px !important;" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-double-left"></i>
+          </a>
+      {% endif %}
+
+      <span class="current mx-2">
+          Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+          <a class="btn btnnavbar text-warning" style="display: inline-flex; width: 35px !important; height: 35px !important;" href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i>
+          </a>
+      {% endif %}
+  </span>
+</div>
+
+
+
+
 
 {% include 'user_newpost_modal.html' %}
 {% comment %} {% include 'user_posts_update_modal.html' %} {% endcomment %}
