@@ -59,14 +59,14 @@ class UserProfileForm(ModelForm):
 #! POST FORM 
 class Post(models.Model):
     STATUS = (('New', 'New'),('True', 'True'),('False', 'False'))
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     create_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=5, choices=STATUS, default='New')
     # status = models.BooleanField(choices=STATUS, default=False)
     image = models.ImageField(upload_to='images/')
-    id = models.AutoField(primary_key=True)
 
     def __str__(self):
         return self.title
