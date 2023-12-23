@@ -39,7 +39,7 @@ def index(request):
                 data.image="images/users/user.png"
                 data.save()
                 messages.success(request, 'Your account has been created!')
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/user')
             else:
                 messages.warning(request, signup_form.errors)
                 return HttpResponseRedirect('/')
