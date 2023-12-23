@@ -45,28 +45,23 @@
   
   
 {% comment %}! Reply Comment {% endcomment %}
-<div class="text-center shadow-lg rounded border w-25 p-4 m-auto bg-info" style="margin-top: 3rem !important;">
+<div class="text-center shadow-lg rounded border mx-5 p-4 m-auto bg-info" style="margin-top: 3rem !important;">
   <h2 class="text-light">REPLY COMMENTS</h2>
 </div>
 
 <div class="card-group mx-5 mt-5" style="gap: 1rem; position: static !important;">
   {% for comment in repcomments %}
-  <div class="card align-items-center rounded">
-      {% comment %} <img src="{{ comment.post.image.url }}" class="card-img-top py-4 w-75" alt="NO PHOTO!"> {% endcomment %}
-    <div class="card-body w-100">
-        <div class="d-flex flex-row-reverse justify-content-between">
-          <p class="p-2 rounded bg-info">Reply</p>
+    <div class="card align-items-center rounded">
+      <div class="card-body">
+        <p class="p-2 rounded bg-info float-right">Reply</p>
             <h6 class="card-title">Comment: {{ comment.comment }}</h6>
-            {% comment %} <h5 class="card-title">{{ comment.user.get_full_name }}</h5> {% endcomment %}
-        </div>
-      <p class="card-text">Reply: {{ comment.repcomment }}</p>
-      <p class="card-text"><small class="text-muted">{{ comment.create_at }}</small></p>
+        <p class="card-text">Reply: {{ comment.repcomment }}</p>
+        <p class="card-text"><small class="text-muted">{{ comment.create_at }}</small></p>
+      </div>
+      <div class="text-right p-2">
+        <a href="/user/deletecomment/{{ comment.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn btn-outline-danger rounded float-left">REMOVE</button></a>
+      </div>
     </div>
-    <div class="text-right w-100 p-2">
-      {% comment %} <a class="btn btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{ comment.post.id }}">DETAIL</a> {% endcomment %}
-      <a href="/user/deletecomment/{{ comment.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn btn-outline-danger rounded float-left">REMOVE</button></a>
-    </div>
-  </div>
   {% endfor %}
 </div>
 
