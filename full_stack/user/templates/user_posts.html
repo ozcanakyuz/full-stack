@@ -68,7 +68,7 @@
       </span>
 
       {% if page_obj.has_next %}
-          <a class="btn btnnavbar text-warning" style="display: inline-flex; width: 35px !important; height: 35px !important;" href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i>
+          <a class="btn btnnavbar text-warning" style="display: inline-flex; width: 35px !important; height: 35px !important;" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-double-right"></i>
           </a>
       {% endif %}
   </span>
