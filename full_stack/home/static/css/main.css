@@ -16,7 +16,6 @@
   background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(199, 147, 255, 0.9));;
   background: linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(199, 147, 255, 0.9));;
   height: 40vh;
-  border-radius: 0 0 15px 15px;
 }
 
 /* ! NAVBAR RIGHT  */
@@ -548,11 +547,6 @@ div > img {
   background: rgb(106, 17, 203);
   background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(199, 147, 255, 0.9));;
   background: linear-gradient(to right, rgba(106, 17, 203, 0.9), rgba(199, 147, 255, 0.9));;
-  padding: 20px;
-  background-color: #0099ff;
-  color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 #footer-icons {
