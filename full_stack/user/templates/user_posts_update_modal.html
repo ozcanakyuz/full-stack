@@ -3,10 +3,9 @@
 {% block body %}
 
 <div class="modal fade bd-example-modal-lg" id="postsupdate" tabindex="-1" role="dialog" aria-labelledby="postsUpdateLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  {% comment %} <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        {% comment %} <h5 class="modal-title" id="postsupdateLabel">{{ post.user.get_full_name }}</h5> {% endcomment %}
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -24,8 +23,26 @@
         <button type="button" class="btn btn-primary rounded px-3" data-dismiss="modal">Close</button>
       </div>
     </div>
+  </div> {% endcomment %}
+
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content shadow-lg rounded">
+      <div class="modal-header">
+          <h5 class="modal-title">UPDATE - {{ profile.user.get_full_name }}</h5>
+      </div>
+        <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="form-group">
+            <button class="btn btn-success rounded py-2 float-right" type="submit">Save Changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
+
 
 
 {% endblock %}

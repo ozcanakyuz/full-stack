@@ -7,7 +7,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          {% comment %} <h5 class="modal-title" id="containerdetailLabel">{{ post.user.get_full_name }}</h5> {% endcomment %}
+          <h5 class="modal-title" id="containerdetailLabel">ADD POST</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -19,10 +19,10 @@
                         <label for="name">Your Name*</label>
                         <input type="text" name="title" class="form-control" id="name">
                     </div>
-                    <div class="form-group">
+                    {% comment %} <div class="form-group">
                         <label for="email">Your Email*</label>
                         <input type="email" class="form-control" id="email">
-                    </div>
+                    </div> {% endcomment %}
                     <div class="form-group">
                         <label for="message">Whats Up?</label>
                         <textarea id="message" name="content" cols="30" rows="5" class="form-control"></textarea>

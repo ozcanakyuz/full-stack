@@ -6,9 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from home.models import Comment, Post, PostForm, ReplyComment, UserProfile, UserProfileForm
-
 from user.forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required(login_url='/login') # Check login
@@ -100,6 +98,7 @@ def user_password(request):
 def user_post(request):
     current_user = request.user
     posts = Post.objects.filter(user_id = current_user.id)
+    profile = UserProfile.objects.get(user_id=current_user.pk)
     paginator = Paginator(posts, 8)
     page_number = request.GET.get('page')
     
@@ -110,7 +109,6 @@ def user_post(request):
     except EmptyPage:
         page_obj = paginator.page(paginator.num_pages)
 
-    
     profile = UserProfile.objects.get(user_id = current_user.pk)
     context = {'posts': posts,
                'page_obj': page_obj,
@@ -118,12 +116,14 @@ def user_post(request):
                'page': 'USER POSTS',}
     return render(request, 'user_posts.html', context)
 
+
 @login_required(login_url='/login') # Check login
 def user_deletepost(request,id):
+    url = request.META.get('HTTP_REFERER')
     current_user = request.user
     Post.objects.filter(id=id, user_id=current_user.id).delete()
     messages.success(request, 'Post deleted..')
-    return HttpResponseRedirect('/user/post')
+    return HttpResponseRedirect(url)
 
 @login_required(login_url='/login')
 def user_newpost(request):
@@ -141,7 +141,7 @@ def user_addpost(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            data = Post() 
+            data = Post()
             data.title = form.cleaned_data['title']
             data.content = form.cleaned_data['content']
             data.image = form.cleaned_data['image']
@@ -151,7 +151,7 @@ def user_addpost(request):
             data.user_id = current_user.id
             data.save()
             messages.success(request, "Your post has been created.")
-            return HttpResponseRedirect('/user/post')
+            return HttpResponseRedirect(url)
         return HttpResponseRedirect(url)
 
 

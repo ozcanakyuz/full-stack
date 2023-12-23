@@ -14,7 +14,7 @@
 <!-- Header -->
 
 {% comment %}!-- Card Detail --> {% endcomment %}
-<div class="containerlog m-auto px-3" id="containerdetail">
+<div class="container_detail m-auto px-3" id="containerdetail">
     <div class="card align-items-center rounded my-4" style="border: none;">
         <img src="{{ post_detail.image.url }}" class="card-img-top" alt="NO PHOTO!!">
     </div>
@@ -27,7 +27,7 @@
 
 {% comment %} ! COMMENTS {% endcomment %}
 {% for comment in comments %}
-<div class="containerlog m-auto px-4 py-3" style="margin-top: 1rem !important;" id="card-detail-comments">
+<div class="container_detail m-auto px-4 py-3" style="margin-top: 1rem !important;" id="card-detail-comments">
     <div class="media-body">
             <h6 class="text-muted"><i>{{ comment.create_at }}</i></h6>
         <div class="media-body">
@@ -71,7 +71,7 @@
     </div>
 </div>
 {% endfor %}
-<div class="containerlog m-auto p-3" style="margin-top: 1rem !important;">
+<div class="container_detail m-auto p-3" style="margin-top: 1rem !important;">
     <form action="/addcomment/{{ post_detail.id }}" method="POST">
         {% csrf_token %}
         <div class="form-group">

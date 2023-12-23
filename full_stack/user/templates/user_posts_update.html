@@ -21,15 +21,14 @@
         <h5 class="modal-title">UPDATE - {{ profile.user.get_full_name }}</h5>
     </div>
       <div class="modal-body">
-
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <div class="form-group">
-            <button class="btn btn-success rounded py-2 float-right" type="submit">Save Changes</button>
-        </div>
-        </form>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group">
+          <button class="btn btn-success rounded py-2 float-right" type="submit">Save Changes</button>
       </div>
+      </form>
+    </div>
   </div>
 </div>
 

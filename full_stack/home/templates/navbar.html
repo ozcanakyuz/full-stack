@@ -3,11 +3,11 @@
 
 {% block body %}
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-light gradient-custom px-5">
+<nav class="navbar navbar-expand bg-light gradient-custom px-5">
     <!-- Container wrapper -->
-    <div class="container-fluid">
+    <div class="container-fluid" id="full-stack">
         <!-- Toggle button -->
-        <button
+        {% comment %} <button
             class="navbar-toggler text-white"
             type="button"
             data-mdb-toggle="collapse"
@@ -17,12 +17,12 @@
             aria-label="Toggle navigation"
         >
             <i class="fas fa-bars"></i>
-        </button>
+        </button> {% endcomment %}
 
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Navbar brand -->
-            <a class="navbar-brand mt-2 mt-lg-0" href="/">
+            <a class="navbar-brand mt-2 mt-lg-0" href="/" style="margin-right: 0">
                 <h3 class="pt-1 mb-1 text-light border-bottom">FULL-STACK</h3>
             </a>
         </div>
@@ -30,17 +30,18 @@
 
         <!-- Right elements -->
     {% comment %} ! SEARCH KISMI {% endcomment %}
-        <form action="{% url 'search' %}" method="POST">
-            {% csrf_token %}
-            <div class="search-box">
-                <button class="btn btnnavbar btn-search" type="button"><i class="fas fa-search"></i></button>
-                
-                <input type="text" name="query" class="input-search" placeholder="Type to Search...">
-            </div>
-        </form>
 
-        <div class="d-flex align-items-center frame-right border-bottom">
-            <!-- Icon -->
+
+    <form action="{% url 'search' %}" method="POST">
+        {% csrf_token %}
+        <div class="search-box">
+            <button class="btn btnnavbar btn-search" type="button"><i class="fas fa-search"></i></button>
+            
+            <input type="text" name="query" class="input-search" placeholder="Type to Search...">
+        </div>
+    </form>
+    <div class="d-flex align-items-center frame-right border-bottom">
+        <!-- Icon -->
         {% with request.resolver_match.url_name as url_name %}
             {% comment %} {% if url.name == 'index' %} {% endcomment %}
                 <a class="text-reset me-3 btn btnnavbar" id="information" href="#" type="button" 
@@ -88,7 +89,7 @@
             </div>
             {% else %}
             <div class="dropdown" id="login-signup">
-                <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerlog" onclick="containerLogClose()">
+                <a class="dropbtn d-flex align-items-center hidden-arrow btnnavbar" href="#" id="navbarDropdownMenuAvatar" type="button" data-toggle="modal" data-target="#containerlog">
                     <i class="fa-regular fa-user text-dark"></i>
                 </a>
             </div>

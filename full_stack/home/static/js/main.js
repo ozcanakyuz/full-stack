@@ -95,23 +95,61 @@ signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
 });
 
+//! LOG IN CLOSE
+// document.addEventListener('DOMContentLoaded', function () {
+//     const modal = document.getElementById("containerlog");
 
-// function containerLogClose() {
-//     const login = document.getElementById("containerlog")
-// // Close the login if the user clicks outside of it
-//     document.addEventListener('click', e => {
-//         if (!e.composedPath().includes(login)
-//         ) {
-//             if (login.classList == "containerlog m-auto modal fade show") {
-//                 login.classList.remove("show")
-//             }
+//     function closeModal() {
+//         if (modal.classList.contains("show")) {
+//             modal.classList.remove("show");
+//             // Set backdrop opacity to 0 when modal is closed
+//             setBackdropOpacity(0);
 //         }
-//     })
-// }
+//     }
+
+//     function openModal() {
+//         if (!modal.classList.contains("show")) {
+//             modal.classList.add("show");
+//             // Set backdrop opacity to 0.5 when modal is opened
+//             setBackdropOpacity(0.5);
+//         }
+//     }
+
+//     document.addEventListener('click', function (e) {
+//         const target = e.target;
+
+//         // Check if the clicked element is outside the modal
+//         if (!modal.contains(target)) {
+//             closeModal();
+//         }
+//     });
+
+//     // You can add additional logic to open the modal (e.g., a button click)
+//     // For example, you can open the modal when clicking a button with id="openModal"
+//     const openModalButton = document.getElementById("openModal");
+//     if (openModalButton) {
+//         openModalButton.addEventListener('click', openModal);
+//     }
+
+//     // You can also add logic to close the modal (e.g., a button click inside the modal)
+//     // For example, you can close the modal when clicking a button with id="closeModal"
+//     const closeModalButton = document.getElementById("closeModal");
+//     if (closeModalButton) {
+//         closeModalButton.addEventListener('click', closeModal);
+//     }
+
+//     // Function to set backdrop opacity
+//     function setBackdropOpacity(opacity) {
+//         const backdrop = document.querySelector('.modal-backdrop');
+//         if (backdrop) {
+//             backdrop.style.opacity = opacity;
+//         }
+//     }
+// });
+
 
 
 // ! DRIVER JS
-
 const driver = window.driver.js.driver;
 
 function homeInfo() {
