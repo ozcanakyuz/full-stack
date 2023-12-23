@@ -98,21 +98,40 @@ def logout_view(request):
 def post_detail(request, id):
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':  #check post
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
+        login_form = LoginForm(request.POST)
+        signup_form = SignUpForm(request.POST)
+        if 'login_submit' in request.POST:     #! LOG IN FORM
+            if login_form.is_valid():
+                username = login_form.cleaned_data['username']
+                password = login_form.cleaned_data['password']
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request, user)
                     messages.success(request, "You have successfully logged in {}".format(user.username))
-                    return HttpResponseRedirect(url)
+                    return HttpResponseRedirect('/')
                 else:
-                    messages.warning(request, "Girilen Bilgiler Hatali Tekrar Deneyiniz {}".format(username))
-                    return HttpResponseRedirect(url)
+                    messages.warning(request, "The Information Entered Is Incorrect, Try Again! {}".format(username))
+                    return HttpResponseRedirect('/')
+        elif 'signup_submit' in request.POST:  #! SIGN UP FORM
+            if signup_form.is_valid():
+                signup_form.save()
+                username = signup_form.cleaned_data.get('username')
+                password = signup_form.cleaned_data.get('password')
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                current_user = request.user
+                data = UserProfile()
+                data.user_id = current_user.id
+                data.image="images/users/user.png"
+                data.save()
+                messages.success(request, 'Your account has been created!')
+                return HttpResponseRedirect('/user')
             else:
-                messages.warning(request, form.errors)
-                return HttpResponseRedirect(url)
+                messages.warning(request, signup_form.errors)
+                return HttpResponseRedirect('/')
+        else:
+            login_form = LoginForm()
+            signup_form = SignUpForm()
     if request.user.is_authenticated:
         current_user = request.user
         profile = UserProfile.objects.get(user_id = current_user.pk)
