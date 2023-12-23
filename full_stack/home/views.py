@@ -113,9 +113,7 @@ def post_detail(request, id):
             else:
                 messages.warning(request, form.errors)
                 return HttpResponseRedirect(url)
-
     if request.user.is_authenticated:
-        #* Kullanıcı giriş yapmışsa, istediğiniz postları çek
         current_user = request.user
         profile = UserProfile.objects.get(user_id = current_user.pk)
         comments = Comment.objects.filter(post_id=id, status='True')
@@ -231,7 +229,7 @@ def search(request):
                 data.image="images/users/user.png"
                 data.save()
                 messages.success(request, 'Your account has been created!')
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/user')
             else:
                 messages.warning(request, signup_form.errors)
                 return HttpResponseRedirect('/')
