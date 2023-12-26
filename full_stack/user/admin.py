@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from home.models import Comment, Images, Post, ReplyComment, UserProfile
 
 
@@ -14,6 +13,7 @@ class PostsImagesInline(admin.TabularInline):
     model = Images
     extra = 5
     readonly_fields = ('image_tag',)
+
 class PostsAdmin(admin.ModelAdmin):
     list_display = ['user','title','content','create_at','image_tag','status']
     list_filter = ['title','content','status']

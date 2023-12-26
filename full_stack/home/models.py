@@ -24,8 +24,8 @@ class Setting(models.Model):
     instagram = models.CharField(blank=True, max_length=50)
     twitter = models.CharField(blank=True, max_length=50)
     youtube = models.CharField(blank=True, max_length=50)
-    aboutus = RichTextUploadingField()  #! models.TextField()
-    contact = RichTextUploadingField() #! RichTextUploadingField()
+    aboutus = RichTextUploadingField()
+    contact = RichTextUploadingField()
     references = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -65,7 +65,6 @@ class Post(models.Model):
     content = models.TextField()
     create_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=5, choices=STATUS, default='New')
-    # status = models.BooleanField(choices=STATUS, default=False)
     image = models.ImageField(upload_to='images/')
 
     def __str__(self):
@@ -81,7 +80,6 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'image']
-        #! image = forms.ImageField(required=True, validators=[validate_image_file_extension])
 
 class Images(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -104,7 +102,6 @@ class Comment(models.Model):
     comment = models.CharField(max_length=250,blank=False)
     ip = models.CharField(max_length=20, blank=True)
     status = models.CharField(max_length=5, choices=STATUS, default='New')
-   # status = models.BooleanField(choices=STATUS, default=False)
     create_at=models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now=True)
 

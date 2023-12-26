@@ -47,8 +47,6 @@
           <a href="deletepost/{{ post.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"><button class="btn mt-2 btn-outline-danger rounded">REMOVE</button></a>
           
           <a class="btn mt-2 btn-outline-success rounded align-items-center hidden-arrow mx-2" href="update/{{post.id}}">UPDATE</a>
-
-          {% comment %} <a class="btn btn-primary rounded px-4 py-2 rounded text-light align-items-center hidden-arrow" id="navbarDropdownEditProfile" type="button" data-toggle="modal" data-target="#postsupdate">UPDATE</a> {% endcomment %}
           
           <a class="btn mt-2 btn-outline-warning rounded align-items-center hidden-arrow" href="/post_detail/{{post.id}}">DETAIL</a>
         </div>
@@ -79,7 +77,5 @@
 
 
 {% include 'user_newpost_modal.html' %}
-{% include 'user_posts_update_modal.html' %}
-
 
 {% endblock %}

@@ -42,21 +42,6 @@ def index(request):
                    'page': 'USER PROFILE',}
         return render(request, 'user_profile.html', context)
 
-# @login_required
-# def user_settings(request):
-#     profile = UserProfile.objects.get_or_create(user=request.user)[0]
-
-#     if request.method == 'POST':
-#         form = UserProfileForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('user_profile')
-#     else:
-#         form = UserProfileForm(instance=profile)
-
-#     return render(request, 'user_settings.html', {'form': form})
-
-
 @login_required(login_url='/login') # Check login
 def user_settings(request):
     if request.method == 'POST':
@@ -84,7 +69,7 @@ def user_password(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # Important!
+            update_session_auth_hash(request, user)  #! Important!
             messages.success(request, 'Your password was successfully updated!')
             return HttpResponseRedirect('/user')
         else:
@@ -115,7 +100,6 @@ def user_post(request):
                'profile': profile,
                'page': 'USER POSTS',}
     return render(request, 'user_posts.html', context)
-
 
 @login_required(login_url='/login') # Check login
 def user_deletepost(request,id):
@@ -154,7 +138,6 @@ def user_addpost(request):
             return HttpResponseRedirect(url)
         return HttpResponseRedirect(url)
 
-
 @login_required(login_url='/login')
 def user_comments(request):
     current_user = request.user
@@ -183,7 +166,6 @@ def user_posts_update(request, id):
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
-            # İşlem başarılı olduğunda başka bir sayfaya yönlendirme yapabilirsiniz.
             return redirect('user_post')
     else:
         form = PostForm(instance=post)

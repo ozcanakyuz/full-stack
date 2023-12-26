@@ -2,9 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from django.forms import TextInput, EmailInput, Select, FileInput
-
 from home.models import UserProfile
-
 
 
 class UserUpdateForm(UserChangeForm):
@@ -36,7 +34,6 @@ CITY = [
     ('Hatay', 'Hatay'),
 ]
 
-
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = UserProfile
@@ -48,7 +45,6 @@ class ProfileUpdateForm(forms.ModelForm):
             'country': TextInput(attrs={'class': 'input', 'placeholder': 'country'}),
             'image': FileInput(attrs={'class': 'input', 'placeholder': 'image', }),
         }
-
 
 class UserProfileForm(forms.ModelForm):
     class Meta:

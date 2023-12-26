@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
@@ -89,7 +88,6 @@ def index(request):
                    'page': 'Home',} 
         return render(request, 'index.html', context)
 
-
 #! LOG OUT
 def logout_view(request):
     logout(request)
@@ -157,30 +155,6 @@ def post_detail(request, id):
                    'page': 'POST DETAIL',}
         return render(request, 'post_detail.html', context)
 
-
-# def post_detail(request, id):
-#     if request.user.is_authenticated:
-#         #* Kullanıcı giriş yapmışsa, istediğiniz postları çek
-#         current_user = request.user
-#         profile = UserProfile.objects.get(user_id = current_user.pk)
-#         comments = Comment.objects.filter(post_id=id, status='True')
-#         repcomments = ReplyComment.objects.filter(comment_id=id, status='True') #? "status=True" not working!
-#         post_detail = Post.objects.get(pk=id)
-#         context = {'post_detail': post_detail,
-#                     'comments': comments,
-#                     'repcomments': repcomments,
-#                     'profile': profile,}
-#         return render(request, 'post_detail.html', context)
-#     else:
-#         comments = Comment.objects.filter(post_id=id, status='True')
-#         repcomments = ReplyComment.objects.filter(comment_id=id, status='True')
-#         post_detail = Post.objects.get(pk=id)
-#         context = {'post_detail': post_detail,
-#                    'comments': comments,
-#                    'repcomments': repcomments,
-#                    'page': 'POST DETAIL',}
-#         return render(request, 'post_detail.html', context)
-
 def addcomment(request,id):
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':
@@ -196,7 +170,7 @@ def addcomment(request,id):
             messages.success(request, "Your review has been sent. Thank you for your interest.")
             return HttpResponseRedirect(url)
         else:
-            messages.warning(request, "Lütfen mesaj kutucuklarini doldurunuz!!") 
+            messages.warning(request, "Please do not leave the message boxes empty!") 
     return HttpResponseRedirect(url)
 
 def replycomment(request, id):
@@ -214,9 +188,8 @@ def replycomment(request, id):
             messages.success(request, 'Comment replied!')
             return HttpResponseRedirect(url)
         else:
-            messages.warning(request, "Lütfen mesaj kutucuklarini doldurunuz!!") 
+            messages.warning(request, "Please do not leave the message boxes empty!") 
     return HttpResponseRedirect(url)
-
 
 def search(request):
     if request.method == 'POST':
@@ -233,7 +206,7 @@ def search(request):
                     messages.success(request, "You have successfully logged in {}".format(user.username))
                     return HttpResponseRedirect('/')
                 else:
-                    messages.warning(request, "Girilen Bilgiler Hatali Tekrar Deneyiniz {}".format(username))
+                    messages.warning(request, "Information entered is wrong. Please try again {}".format(username))
                     return HttpResponseRedirect('/')
         elif 'signup_submit' in request.POST:
             if signup_form.is_valid():
@@ -294,25 +267,3 @@ def search(request):
                     'posts': posts,
                     'page': 'Home',} 
         return render(request, 'index.html', context)
-
-        
-
-    # elif request.method == "POST":
-    #     signup_form = SignUpForm(request.POST)
-    #     if signup_form.is_valid():
-    #         signup_form.save()
-    #         username = signup_form.cleaned_data.get('username')
-    #         password = signup_form.cleaned_data.get('password')
-    #         user = authenticate(username=username, password=password)
-    #         login(request, user)
-    #         current_user = request.user
-    #         data = UserProfile()
-    #         data.user_id = current_user.id
-    #         data.image="images/users/user.png"
-    #         data.save()
-    #         messages.success(request, 'Your account has been created!')
-    #         return HttpResponseRedirect('/')
-    #     else:
-    #         messages.warning(request, login_form.errors)
-    #         return HttpResponseRedirect('/')
-

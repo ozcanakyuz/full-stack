@@ -37,6 +37,5 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment']
 
-
 class SearchForm(forms.Form):
     query = forms.CharField(max_length=30)
