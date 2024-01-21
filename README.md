@@ -3,9 +3,10 @@
 Project Description: This project is a Full Stack web application developed using HTML, CSS, JavaScript, and jQuery on the Front End, and Python Django on the Back End.
 
 ## Image
-<img src="https://i.hizliresim.com/jwp2z0x.png" alt="alt text" >
+<img src="https://i.hizliresim.com/575v6z3.png" alt="alt text" >
+
 ## Database
-<img src="https://i.hizliresim.com/575v6z3.png" alt="alt text" width="320" height="180">
+<img src="https://i.hizliresim.com/jwp2z0x.png" alt="alt text" >
 
 ## Usage Scenarios
 
