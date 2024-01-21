@@ -66,12 +66,12 @@ Project Description: This project is a Full Stack web application developed usin
 
 1. Clone the project to your computer:
    ```
-   git clone https://github.com/username/project-name.git
+   git clone https://github.com/ozcanakyuz/full-stack.git
    ```
 
 2. Create and activate a virtual environment:
    ```bash
-   cd project-name
+   cd full-stack
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
